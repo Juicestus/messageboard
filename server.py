@@ -159,13 +159,16 @@ def index():
 @app.route('/login',methods=['GET','POST'])
 def login():
 
-    return '''<h1>Login coming soon!</h1>'''
+    return '''<h1>Login coming soon!</h1>
+    img style="margin:20px;" src='{{ url_for("static", filename="img/jesus.gif") }}' max-width="600px;">'''
 
 
 @app.route('/signup',methods=['GET','POST'])
 def signup():
 
-    return '''<h1>Signup coming soon!</h1>'''
+    return '''<h1>Signup coming soon!</h1>
+    img style="margin:20px;" src='{{ url_for("static", filename="img/jesus.gif") }}' max-width="600px;">'''
+
 
 
 # ENTRY POINT
