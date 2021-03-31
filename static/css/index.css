@@ -1,0 +1,166 @@
+/*
+Made for 2021 CSP Create Project
+I am not responsible for the content
+posted by users of the website
+*/
+
+.centered {
+ margin:20px auto;
+ text-align:center;
+}
+body {
+  background-color: #0a0a0c;
+}
+div {
+  margin: 10px 0px 20px 20px;
+  padding: 0px;
+  border: 3px #657786 solid;
+  background-color: black;
+}
+.insidebar {
+  margin-left: 22px;
+}
+div.sidebar {
+  padding: 5px 0px 5px 5px;
+  margin-right: 0px;
+  margin-left: 15px;
+}
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #657786; 
+}
+::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background: #1DA1F2; 
+}
+::-webkit-scrollbar-thumb:hover {
+  border-radius: 10px;
+  background: #0d659c; 
+}
+table {
+  font-family:arial;
+  border-collapse: collapse;
+  padding: 0px;
+}
+table.mar {
+  margin: 20px 20px 20px 20px; 
+}
+.msgtable {
+  width: 960px;
+  overflow-y:scroll;
+  height:85%;
+  display:block;
+}
+td {
+  text-align: left;
+  padding: 8px;
+  color: white;
+}
+.msgtd {
+  border-bottom: 2px solid #657786;
+}
+img {
+  max-width: 300px;
+  max-width: 300px;
+
+}
+span {
+  width: 150px; 
+  word-wrap:break-word; 
+  display:inline-block;
+}
+h1 {
+  color:white;
+  font-family: arial; 
+  text-align:left; 
+  margin: 12px; 
+  padding: 0px;
+  font-size: 220%; 
+}
+h2 {
+  color:#1DA1F2;
+  font-family: arial; 
+  text-align:left; 
+  margin: 10px; 
+  padding: 0px;
+  font-size: 220%; 
+}
+p {
+  color:white;
+  font-size:120%;
+  font-family: arial; 
+  text-align:left; 
+  margin: 10px; 
+  padding: 0px;
+}
+code {
+  color:white;
+  font-size:12px;
+  padding: 0px;
+}
+a {
+  color:#1DA1F2;
+  font-family:arial; 
+}
+a:hover {
+  color:#0d659c;
+  font-size:100%;
+  font-family:arial; 
+  text-align:left; 
+}
+textarea {
+  font-family:arial;
+  margin: 0px;
+  padding: 5px;
+  border: 2px white solid;
+  border-radius: 10px;
+  resize: none;
+}
+input[type=text] {
+  font-family:arial; 
+  margin: 0px;
+  padding: 5px;
+  border: 2px white solid;
+  width: 365px;
+  border-radius: 10px;
+}
+input[type=submit] {
+  font-family:arial; 
+  font-size:130%;
+  margin: 0px; 
+  padding: 12px;
+  border-radius: 35px;
+  background-color: #1DA1F2;
+  color: white;
+  border: 2px #1DA1F2 solid;
+}
+input[type=submit]:hover {
+  background-color: #0d659c;
+  border: 2px #0d659c solid;
+  font-family: arial ;
+}
+.btn-w {
+  margin: 0px;
+  padding: 0px;
+  background-color: none;
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
+  border: none;
+}
+.btn {
+  font-family:arial; 
+  font-size:130%;
+  margin: 0px; 
+  padding: 12px;
+  border-radius: 35px;
+  background-color: #1DA1F2;
+  color: white;
+  border: 2px #1DA1F2 solid;
+}
+.upload-btn-wrapper input[type=file] {
+  font-size: 100px;
+  position: absolute;
+}

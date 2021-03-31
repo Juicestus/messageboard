@@ -1,0 +1,106 @@
+<!DOCTYPE HTML>
+<!--
+Made for 2021 CSP Create Project
+I am not responsible for the content
+posted by users of the website
+-->
+<html>
+    <head>
+        <title>CSP ChatRoom</title>
+		<!--
+		External Scripts
+		JQuery: <https://jquery.com/>
+		SocketIO: <https://socket.io/> (client side JS, not Node)
+		-->
+		<link rel="stylesheet" href="{{ url_for("static", filename="css/index.css") }}"><!--index.css for page stylesheet-->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" 
+                integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous">
+        </script><!--JQuery-->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/3.0.4/socket.io.js" 
+                integrity="sha512-aMGMvNYu8Ue4G+fHa359jcPb1u+ytAF+P2SCb+PxrjCdO3n3ZTxJ30zuH39rimUggmTwmh2u7wvQsDTHESnmfQ==" crossorigin="anonymous">
+        </script><!--SocketIO-->
+		<script src='{{ url_for("static", filename="js/index.js") }}'></script><!--index.js-->
+    </head>
+    <body class="">
+        <table>
+            <tr>
+                <td>
+                    <div class="sidebar" style="height: 766px; width: 270px;">
+                        <h1 class="insidebar">Justus' Imageboard</h1>
+                        <h3 class="insidebar" style="margin-top:0px;">Beta 12.5</h3>
+                        
+                        <table style="margin-left:12px;">
+                            <tr>
+                                <td>
+                                    <button type="button" class="btn" onclick="location.href = '/login';" >Log In</button>
+                                
+                                </td>
+                                <td>
+                                    <button type="button" class="btn" onclick="location.href = '/signup';" >Sign Up</button>
+                                </td>
+                            </tr>
+                        </table>
+                        <br>
+                        <!--<img style="margin:20px;" src='{{ url_for("static", filename="img/jesus.gif") }}' width="200px;">-->
+                        <h3 class="insidebar" style="margin-top:0px; margin-bottom:0px;">Rules</h3> 
+                        <p class="insidebar">
+                            Usernames are baseless pseudonym's for users and <b>mean nothing. </b>
+                            Please be kind to others! There are 0 forms of moderation <i>currently</i> besides the profanity filter. 
+                            Admin is <b><i>not responsible</i></b> for any content posted by users!
+                        </p>
+                        <h3 class="insidebar" style="margin-top:0px; margin-bottom:0px;">Privacy Policy</h3> 
+                        <p class="insidebar">
+                            No information is saved or logged to a hard storage location. 
+                            Images are not saved either. 
+                            Everything is just handled during active server processing.
+                            Subject to change for scalability and performance settings, probably with an updated rendering method.
+                        </p>
+                    </div>
+                </td>
+                <td>
+                    <div class="mar" style="height: 180px; width: 1000px;"> 
+                        <form action="" method="POST" id="sendForm"> 
+                        <table>
+                            <tr>
+                                <td>Username: </td>
+                                <td><input type="text" class="username" placeholder="Username" maxlength="50" id="userbox"> 
+                                </td>
+                                <td>
+                                    <h2>Send Message!</h2>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Message: </td>
+                                <td><textarea maxlength="100" 
+                                    name="message" class="message"rows="4" cols="50" name="message" 
+                                    id="messageArea" form="sendForm" placeholder="Message..." id="msbox"></textarea>
+                                </td>
+                                <td>
+                                    <div style="padding-left: 10px;" class="btn-w upload-btn-wrapper">
+                                        <input id="fileUpload" type='file' name="myfile" style="visibility: hidden;"/>
+                                        <button type="button" class="btn" onclick="$('#fileUpload').click();" >Upload a file</button>
+                                    </div>
+                                    <div style="padding-left: 10px;" class="btn-w">
+                                        <input type="submit" value="Send">
+                                    </div>
+                                    <div style="padding-left: 10px; width:80px;" class="btn-w">
+                                        <code id="waitmsg"></code>
+                                    </div>
+                                </td>
+                            </tr>
+                        
+                        </table>
+
+                        
+                        </form>
+                    </div> 
+                    <div class="" style="width: 1000px; height: 570px;">
+                        <table class="mar msgtable"  id="messages"> 
+                        </table>  
+                        <p id="newmsg" style="margin-left:20px; margin-bottom:5px;"></p>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </body>
+</html>
