@@ -178,4 +178,4 @@ if __name__ == '__main__':
         socketio.run(app,debug=True)          # Run SocketIO App and Async subprocesses in debug mode
 
     else:
-        socketio.run(app,port=80,debug=False) # Run App on port 80 for production
+        socketio.run(app,host='0.0.0.0',port=80,debug=False) # Run App on port 80 for production
