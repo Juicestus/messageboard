@@ -53,7 +53,8 @@ function processMessages(messages) // Loads the messages in the table
 			image = `${breaks}<br><img src="${message.src}"></img>`;
 		}
 		table += `<tr><td class="msgtd"><span>${message.username}</span></td><td class="msgtd"><span style='width: 575px;'>${message.msg}${image}</span></td><td class="msgtd"><span><code>${message.time}</code></span></td></tr>`
-
+		
+		scrollDown();
 	};
 	table += '</table>'; // Closes table
 	document.getElementById('messages').innerHTML = table; // Sets table in document
