@@ -17,10 +17,12 @@ import re                                         # Regex handles advanced strin
 import sys                                        # Using to handle entry args                               # preintsalled
 
 from profanity_filter import ProfanityFilter
+import base64
 
 # INITIAL VARS
 
 restrictedwords = [] # Add words to be censored
+imgnum = 1
 
 # legal characters to display
 legalchars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890,./<>:?;\'"[]{}|-_=+!@#$%^&*()~≠±–—¡™£¢∞§¶• '
@@ -48,7 +50,7 @@ class Message():
         # Time is converted from UNIX timestamp into readable format
         self.message['time'] = datetime.utcfromtimestamp(int(self.message['time']) / 1000).strftime('%Y-%m-%d %H:%M:%S') 
 
-        message = self.message['msg'][:100]    # Delete all the extra characters
+        message = self.message['msg'][:1000]    # Delete all the extra characters
 
         message = message.replace('<','&lt;') # Replace < with html safe < 
         message = message.replace('>','&gt;') # Replace > with html safe > 
@@ -125,6 +127,21 @@ class Message():
             self.message['msg'] = self.message['msg'].replace(search,replace) 
             self.message['username'] = self.message['username'].replace(search,replace) 
 
+    def formatImg(self):
+
+        if self.message['src'] != 'NOIMAGE':
+
+            src = self.message['src'].split(',')
+            data = src[1]
+            ext = ((src[0].split('/'))[1].split(';'))[0]
+
+            filename = f'upl/{self.message["time"]}.{ext}'
+            with open('static/' + filename, 'wb') as f:
+                f.write(base64.decodebytes(data.encode("ascii")))
+
+            self.message['src'] = url_for("static", filename=filename)
+
+
 
 # SOCKETIO EVENTS
 @socketio.event                                 
@@ -132,6 +149,7 @@ def updateMessage(message):                         # Message comes in from clie
 
     message = Message(message)                      # Instantiate the message as an instance of our class
 
+    message.formatImg()
     message.makeSafe()                              # Comment this part out later u lazy fuck
     message.formatLinks()
     message.legalize(legalchars)
@@ -149,7 +167,6 @@ def connected():                                 # On client connection
     emit('newMessage',messages,broadcast=True)   # Send current messages to client
 
 # ROUTES
-#@app.route('/',methods=['GET','POST'])
 @app.route('/',methods=['GET'])                                        
 def index():            
 

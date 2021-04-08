@@ -19,15 +19,22 @@ posted by users of the website
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/3.0.4/socket.io.js" 
                 integrity="sha512-aMGMvNYu8Ue4G+fHa359jcPb1u+ytAF+P2SCb+PxrjCdO3n3ZTxJ30zuH39rimUggmTwmh2u7wvQsDTHESnmfQ==" crossorigin="anonymous">
         </script><!--SocketIO-->
-		<script src='{{ url_for("static", filename="js/index.js") }}'></script><!--index.js-->
+
+        <!-- JavaScript Code -->
+        <script src='{{ url_for("static", filename="js/helper.js") }}'></script>
+        <script src='{{ url_for("static", filename="js/message.js") }}'></script>
+        <script src='{{ url_for("static", filename="js/notify.js") }}'></script>
+        <script src='{{ url_for("static", filename="js/socket.js") }}'></script>
+
     </head>
     <body class="">
         <table>
             <tr>
                 <td>
                     <div class="sidebar" style="height: 766px; width: 270px;">
-                        <h1 class="insidebar">Justus' Imageboard</h1>
-                        <h3 class="insidebar" style="margin-top:0px;">Beta 12.5</h3>
+                        <h1 class="insidebar"><a href="https://www.gtsbr.org">Justus'</a> Imageboard</h1>
+                        
+                        <h3 class="insidebar" style="margin-top:0px;">Beta 12.6</h3>
                         
                         <table style="margin-left:12px;">
                             <tr>
@@ -63,17 +70,35 @@ posted by users of the website
                         <table>
                             <tr>
                                 <td>Username: </td>
-                                <td><input type="text" class="username" placeholder="Username" maxlength="50" id="userbox"> 
+                                <td>
+                                    <div form="sendForm" name="username" 
+                                    class="usrdiv message" contenteditable="true" 
+                                    placeholder="Username..." id="userbox"></div>
+                                    <!--<input type="text" class="username" placeholder="Username" maxlength="50" id="userbox"> -->
                                 </td>
                                 <td>
                                     <h2>Send Message!</h2>
                                 </td>
+                                <td>
+                                    <p></p>
+                                </td>
                             </tr>
                             <tr>
                                 <td>Message: </td>
-                                <td><textarea maxlength="100" 
-                                    name="message" class="message"rows="4" cols="50" name="message" 
-                                    id="messageArea" form="sendForm" placeholder="Message..." id="msbox"></textarea>
+                                <td>
+                                    <!--<textarea maxlength="100" 
+                                    name="message" class="message" rows="4" cols="50" 
+                                    form="sendForm" placeholder="Message..." 
+                                    onpaste="console.log('onpastefromhtml')" id="msbox"></textarea>-->
+                                    
+                                    <div id="messageArea" form="sendForm" name="message" 
+                                    class="textdiv message" contenteditable="true" 
+                                    placeholder="Message..." ></div>
+                                        
+                                    <script src='{{ url_for("static", filename="js/paste.js") }}'></script>
+
+                                    </div>
+                                  
                                 </td>
                                 <td>
                                     <div style="padding-left: 10px;" class="btn-w upload-btn-wrapper">
@@ -86,6 +111,10 @@ posted by users of the website
                                     <div style="padding-left: 10px; width:80px;" class="btn-w">
                                         <code id="waitmsg"></code>
                                     </div>
+                                </td>
+
+                                <!--<td  id="textareacont">-->
+                                <td>
                                 </td>
                             </tr>
                         

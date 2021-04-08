@@ -63,7 +63,7 @@ td {
 }
 img {
   max-width: 300px;
-  max-width: 300px;
+  max-height: 300px;
 
 }
 span {
@@ -118,6 +118,57 @@ textarea {
   border-radius: 10px;
   resize: none;
 }
+.usrdiv {
+  font-size: 14px;
+  font-family:arial;
+  color: black;
+  margin: 0px;
+  padding: 5px;
+  border: 2px white solid;
+  border-radius: 10px;
+  resize: none;
+  background-color: white;
+  width: 300px;
+  height: 17px;
+  overflow-x: auto;
+  overflow-y: auto;
+}
+
+.textdiv {
+  font-size: 14px;
+  font-family:arial;
+  color: black;
+  margin: 0px;
+  padding: 5px;
+  border: 2px white solid;
+  border-radius: 10px;
+  resize: none;
+  background-color: white;
+  width: 300px;
+  height: 50px;
+  overflow-x: auto;
+  overflow-y: scroll;
+  word-wrap: break-word;
+}
+
+img.pastin {
+  max-width: 100px;
+  max-height: 50px;
+}
+
+div.pimgcont {
+  width: 50px;
+  height: 50px;
+}
+
+[contenteditable=true]:empty:before{
+  color: black;
+  font-style:italic;
+  content: attr(placeholder);
+  pointer-events: none;
+  display: block; /* For Firefox */
+}
+
 input[type=text] {
   font-family:arial; 
   margin: 0px;
