@@ -35,7 +35,7 @@ function processMessages(messages) // Loads the messages in the table
 };
 
 
-function send(socket, username, msg, time, src) 
+function send(socket, username, msg, time, src, q) 
 {
 	if (!msg.replace(/\s/g, '').length && src == "NOIMAGE") // Check if there are all spaces etc.
 	{ 
@@ -57,8 +57,10 @@ function send(socket, username, msg, time, src)
 			});
 
 			lastSent = time;	// Update last sent
-			$('#msbox').val('');
-			$('input.message').val('').focus(); 	
+			//$('#msbox').val('');
+			//$('input.message').val('').focus(); 	
+            qClear(q);
+
 			var msg = document.getElementById('messageArea').value = '';
 		};
 	};

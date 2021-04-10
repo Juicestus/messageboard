@@ -1,85 +1,124 @@
 /*
-Made for 2021 CSP Create Project
-I am not responsible for the content
-posted by users of the website
-*/
+ * Main CSS Styles 
+ * (c) Justus Languell 2020-2021
+ */
 
-.centered {
+.centered 
+{
  margin:20px auto;
  text-align:center;
 }
-body {
+
+body 
+{
   background-color: #0a0a0c;
 }
-div {
+
+div.vis 
+{
   margin: 10px 0px 20px 20px;
   padding: 0px;
   border: 3px #657786 solid;
   background-color: black;
 }
-.insidebar {
+
+.insidebar 
+{
   margin-left: 22px;
 }
-div.sidebar {
+
+div.sidebar 
+{
   padding: 5px 0px 5px 5px;
   margin-right: 0px;
   margin-left: 15px;
 }
-::-webkit-scrollbar {
+
+::-webkit-scrollbar 
+{
   width: 10px;
 }
-::-webkit-scrollbar-track {
+
+::-webkit-scrollbar-track 
+{
   background: #657786; 
 }
-::-webkit-scrollbar-thumb {
+
+::-webkit-scrollbar-thumb 
+{
   border-radius: 10px;
   background: #1DA1F2; 
 }
-::-webkit-scrollbar-thumb:hover {
+
+::-webkit-scrollbar-thumb:hover 
+{
   border-radius: 10px;
   background: #0d659c; 
 }
-table {
+
+table 
+{
   font-family:arial;
   border-collapse: collapse;
   padding: 0px;
 }
-table.mar {
+
+table.mar 
+{
   margin: 20px 20px 20px 20px; 
 }
-.msgtable {
+
+.msgtable 
+{
   width: 960px;
   overflow-y:scroll;
   height:85%;
   display:block;
 }
-td {
+
+td 
+{
   text-align: left;
   padding: 8px;
   color: white;
 }
-.msgtd {
+
+.msgtd 
+{
   border-bottom: 2px solid #657786;
 }
-img {
+
+img 
+{
   max-width: 300px;
   max-height: 300px;
 
 }
-span {
+
+span 
+{
   width: 150px; 
   word-wrap:break-word; 
   display:inline-block;
 }
-h1 {
+
+.imp
+{
+  color: red;
+}
+
+h1 
+{
   color:white;
   font-family: arial; 
   text-align:left; 
   margin: 12px; 
   padding: 0px;
-  font-size: 220%; 
+  font-size: 200%; 
 }
-h2 {
+
+h2 
+{
   color:#1DA1F2;
   font-family: arial; 
   text-align:left; 
@@ -87,7 +126,9 @@ h2 {
   padding: 0px;
   font-size: 220%; 
 }
-p {
+
+p.text 
+{
   color:white;
   font-size:120%;
   font-family: arial; 
@@ -95,81 +136,63 @@ p {
   margin: 10px; 
   padding: 0px;
 }
-code {
+
+code 
+{
   color:white;
   font-size:12px;
   padding: 0px;
 }
-a {
+
+a 
+{
   color:#1DA1F2;
   font-family:arial; 
 }
-a:hover {
+
+a:hover 
+{
   color:#0d659c;
   font-size:100%;
   font-family:arial; 
   text-align:left; 
 }
-textarea {
-  font-family:arial;
-  margin: 0px;
-  padding: 5px;
-  border: 2px white solid;
-  border-radius: 10px;
-  resize: none;
-}
-.usrdiv {
+
+
+div.editor 
+{
   font-size: 14px;
   font-family:arial;
   color: black;
   margin: 0px;
-  padding: 5px;
+  padding: 0px;
   border: 2px white solid;
-  border-radius: 10px;
-  resize: none;
   background-color: white;
-  width: 300px;
-  height: 17px;
-  overflow-x: auto;
-  overflow-y: auto;
-}
-
-.textdiv {
-  font-size: 14px;
-  font-family:arial;
-  color: black;
-  margin: 0px;
-  padding: 5px;
-  border: 2px white solid;
   border-radius: 10px;
-  resize: none;
-  background-color: white;
-  width: 300px;
-  height: 50px;
-  overflow-x: auto;
-  overflow-y: scroll;
-  word-wrap: break-word;
+  height: 75px;
 }
 
-img.pastin {
-  max-width: 100px;
-  max-height: 50px;
+.inputW
+{
+  width: 380px;
 }
 
-div.pimgcont {
-  width: 50px;
-  height: 50px;
+.labels
+{
+  margin-left: 15px;
 }
 
-[contenteditable=true]:empty:before{
+[contenteditable=true]:empty:before
+{
   color: black;
   font-style:italic;
   content: attr(placeholder);
   pointer-events: none;
-  display: block; /* For Firefox */
+  display: block; 
 }
 
-input[type=text] {
+input[type=text] 
+{
   font-family:arial; 
   margin: 0px;
   padding: 5px;
@@ -177,7 +200,9 @@ input[type=text] {
   width: 365px;
   border-radius: 10px;
 }
-input[type=submit] {
+
+input[type=submit] 
+{
   font-family:arial; 
   font-size:130%;
   margin: 0px; 
@@ -187,12 +212,16 @@ input[type=submit] {
   color: white;
   border: 2px #1DA1F2 solid;
 }
-input[type=submit]:hover {
+
+input[type=submit]:hover 
+{
   background-color: #0d659c;
   border: 2px #0d659c solid;
   font-family: arial ;
 }
-.btn-w {
+
+.btn-w 
+{
   margin: 0px;
   padding: 0px;
   background-color: none;
@@ -201,7 +230,9 @@ input[type=submit]:hover {
   display: inline-block;
   border: none;
 }
-.btn {
+
+.btn 
+{
   font-family:arial; 
   font-size:130%;
   margin: 0px; 
@@ -211,7 +242,9 @@ input[type=submit]:hover {
   color: white;
   border: 2px #1DA1F2 solid;
 }
-.upload-btn-wrapper input[type=file] {
+
+.upload-btn-wrapper input[type=file] 
+{
   font-size: 100px;
   position: absolute;
 }

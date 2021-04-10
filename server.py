@@ -27,6 +27,9 @@ imgnum = 1
 # legal characters to display
 legalchars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890,./<>:?;\'"[]{}|-_=+!@#$%^&*()~≠±–—¡™£¢∞§¶• '
 
+tagl = '0xB1eDA5F757CF381d66dBd4ab867e69d217415759_L'
+tagr = '0xB1eDA5F757CF381d66dBd4ab867e69d217415759_R'
+
 formatTags = [('**:','<b>'),('**','</b>'),('*:','<i>'),('*','</i>'),('#:','<code>'),('#','</code>')] 
 # List of tuples of replacments for formating 
 
@@ -141,6 +144,11 @@ class Message():
 
             self.message['src'] = url_for("static", filename=filename)
 
+    def tag(self, tagr, tagl):
+
+        self.message['msg'] = self.message['msg'].replace(tagl,'<')
+        self.message['msg'] = self.message['msg'].replace(tagr,'>')
+
 
 
 # SOCKETIO EVENTS
@@ -155,6 +163,7 @@ def updateMessage(message):                         # Message comes in from clie
     message.legalize(legalchars)
     message.censor(restrictedwords)
     message.searchReplace(formatTags)
+    message.tag(tagr, tagl)
 
     messages.append(message.message)
 
@@ -171,6 +180,12 @@ def connected():                                 # On client connection
 def index():            
 
     return render_template('index.html')         # Serves index.html
+
+# ROUTES
+@app.route('/quill',methods=['GET'])                                        
+def quill():            
+
+    return render_template('quill.html')         # Serves index.html
 
 
 @app.route('/login',methods=['GET','POST'])

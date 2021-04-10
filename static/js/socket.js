@@ -9,6 +9,12 @@ var sendDelay = 5;	// Delay between sends
 
 $(document).ready(function() // On page load
 {
+
+	var quill = getQuillE();
+
+
+
+
     document.getElementById('newmsg').innerHTML = `There are no new messages.`;
 	scrollDown(); // Scroll down messages on document load
 	var socket = io();	// Inst Socket IO connection
@@ -26,10 +32,15 @@ $(document).ready(function() // On page load
 
 			if (time > lastSent + (sendDelay * 1000)) // Looks to see if its been longer than the delay since last send
 			{	
-				var username = document.getElementById('userbox').innerHTML;	// Sets username to username box
+				var username = $('input.username').val();
+				//var username = document.getElementById('userbox').val();	// Sets username to username box
 				//var msg = document.getElementById('messageArea').value; // Sets message to message box
-				var msg = document.getElementById('messageArea').innerHTML;
+				//var msg = document.getElementById('messageArea').innerHTML;
 				var file = document.getElementById('fileUpload').files[0];
+
+				var delta = quill.getContents();
+
+				var msg = parseDelta(delta);
 
 				document.getElementById('fileUpload').type = "text";
 				document.getElementById('fileUpload').type = "file";
@@ -40,16 +51,16 @@ $(document).ready(function() // On page load
 				reader.onloadend = function () 
 				{
 					src = reader.result;
-					send(socket, username, msg, time, src)
+					send(socket, username, msg, time, src, quill);
 				};
 
 				if (file)
 				{
-					reader.readAsDataURL(file)
+					reader.readAsDataURL(file);
 				}
 				else
 				{
-					send(socket, username, msg, time, "NOIMAGE")
+					send(socket, username, msg, time, "NOIMAGE", quill);
 				};
 
 
