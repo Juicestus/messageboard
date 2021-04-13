@@ -14,7 +14,13 @@ import sys
 from profanity_filter import ProfanityFilter
 import base64
 
+from threading import Lock, Thread
+from time import sleep
+
 # INITIAL VARS
+
+
+messages = list() # Instantiate list of messages
 
 restrictedwords = [] # Add words to be censored
 imgnum = 1
@@ -23,7 +29,27 @@ imgnum = 1
 # storage system based in hard memory. 
 # Or dont be a cuck and do it now.
 # or not...
-x=1 
+
+# it doesnt work im about to cry
+
+
+threads = []
+
+def pruner():
+
+    print('rn this thread dont do nothin')
+    '''    
+    while True:
+        #messages = messages[1:]
+        try:
+            messages = messages[-3:]
+        except:
+            print('exception')
+        sleep(5)
+    '''
+
+threads.append(Thread(target=pruner))
+
 
 # This doesnt need to exist anymore bc i fixed the root problem
 # requring this seperate statement, but im too lazy to delete it
@@ -33,23 +59,12 @@ PF = ProfanityFilter()
 # legal characters to display
 legalchars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890,./<>:?;\'"[]{}|-_=+!@#$%^&*()~≠±–—¡™£¢∞§¶• '
 
-# This is legit the most vanurable thing ever made.
-# Like these two tags just completly fuck up the entire security
-# and integraty of the server, specifically the safe rendering 
-# checks. Do I care, absolutly fucking not. I bet that nobody 
-# will figure out how to exploit it until I find a better way,
-# and if I need too ill just hash it and send it to the client
-# thru Jinja. Like its not that bad but this is fucking bad lol.
-tagl = '0xB1eDA5F757CF381d66dBd4ab867e69d217415759_L'
-tagr = '0xB1eDA5F757CF381d66dBd4ab867e69d217415759_R'
-
 formatTags = [('**:','<b>'),('**','</b>'),('*:','<i>'),('*','</i>'),('#:','<code>'),('#','</code>')] 
 # List of tuples of replacments for formating 
 
 app = Flask(__name__,template_folder='html') # Get Flask App
 socketio = SocketIO(app) # Setup Socket Enviorment with App
 
-messages = list() # Instantiate list of messages
 
 
 # SOCKETIO EVENTS
@@ -64,7 +79,6 @@ def updateMessage(message):                         # Message comes in from clie
     message.legalize(legalchars)
     message.censor(restrictedwords)
     message.searchReplace(formatTags)
-    message.tag(tagr, tagl)
 
     messages.append(message.message)
 
@@ -95,10 +109,18 @@ def signup():
     return '''<h1>Signup coming soon!</h1>
     img style="margin:20px;" src='{{ url_for("static", filename="img/jesus.gif") }}' max-width="600px;">'''
 
+def runThreads():
+
+    for thread in threads:
+        thread.daemon = True
+        thread.start()
 
 
 # ENTRY POINT
 if __name__ == '__main__':
+
+    if not '-t' in sys.argv:
+        runThreads()
 
     if '-d' in sys.argv:
         socketio.run(app,debug=True)          # Run SocketIO App and Async subprocesses in debug mode

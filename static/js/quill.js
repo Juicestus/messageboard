@@ -3,24 +3,31 @@
  * (c) Justus Languell 2020-2021
  */
 
-var tagl = '0xB1eDA5F757CF381d66dBd4ab867e69d217415759_L';
-var tagr = '0xB1eDA5F757CF381d66dBd4ab867e69d217415759_R';
+var toolbarOptions = [];
 
+// Inst. Quill
 function getQuillE()
 {
     var q = new Quill('.editor', 
 	{
 		theme: 'bubble',
-        placeholder: 'Try pasting an image from Google! For downloaded images, continue to use the uplaod for now'
-		//placeholder: 'Message...'
+        modules: {
+            toolbar: toolbarOptions
+        },
+        placeholder: 'Message. You can paste images here or use the file upload. Limit 1 image for testing.'
 	});
     return q;
-}
+};
 
+// Parses Input
 function parseDelta(delta)
 {
     var ops = delta.ops;
     var text = '';
+
+    b64img = 'NOIMAGE';
+    webimg = 'NOIMAGE';
+
 
     for (var i=0; i<ops.length; i++)
     {
@@ -28,17 +35,29 @@ function parseDelta(delta)
         
         if (typeof insert == 'object') 
         {
-            text += `${tagl}img src="${insert.image}"${tagr}`;
+            if ((webimg == 'NOIMAGE') && (b64img == 'NOIMAGE'))
+            {
+                if (insert.image.substring(0,11) == 'data:image/')
+                {
+                    b64img = insert.image;
+                }
+                else
+                {          
+                    webimg = insert.image;         
+                };
+            };
         }
         else 
         {
             text += insert;
-        }
-    }
-    return text;
-}
+        };
+    };
+    return [text, b64img, webimg];
+};
 
+// Clears Box
 function qClear(q)
 {
     q.setContents([{ insert: '' }]);
-}
+};
+

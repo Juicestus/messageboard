@@ -3,20 +3,27 @@
  * (c) Justus Languell 2021
  */
 
-function notifyMe() // Notifies of new messag
+/* 
+ * IDK if ill even use this bc
+ * it's so balls. Maybe ill fix it.
+ * I prob wont.
+ */
+
+// Handles Noties
+function notifyMe() 
 {	
-	if (Notification.permission !== 'granted') // If it doesn't have permisions
+	if (Notification.permission !== 'granted') 
 	{
-		Notification.requestPermission();	// Ask for them
+		Notification.requestPermission();	
 	} 
 	else // If it does
 	{	
-		if (document.hidden) // If the document isn't being viewed (in other tab or window)
+		if (document.hidden) 
 		{	
-			var notification = new Notification('New Message');	// Notify of new message
-			notification.onclick = function() // If clicked
+			var notification = new Notification('New Message');	
+			notification.onclick = function() 
 			{		
-				window.open(window.location.href);	// Brings to this page
+				window.open(window.location.href);
 			};
 		};
 	};

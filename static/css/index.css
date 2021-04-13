@@ -9,34 +9,46 @@
  text-align:center;
 }
 
+html{
+  padding:0px;
+  margin:0px;
+}
 body 
 {
   background-color: #0a0a0c;
+  padding: 0px;
+  margin: 0px;
+}
+
+div
+{
+  margin: 0px;
+  padding: 0px;
 }
 
 div.vis 
 {
-  margin: 10px 0px 20px 20px;
-  padding: 0px;
+  /*margin: 10px 0px 20px 20px;*/
   border: 3px #657786 solid;
+  margin-bottom: 20px;
   background-color: black;
 }
 
 .insidebar 
 {
-  margin-left: 22px;
 }
 
 div.sidebar 
 {
-  padding: 5px 0px 5px 5px;
+  margin:0px;
+  padding: 15px;
   margin-right: 0px;
-  margin-left: 15px;
+  margin-left: 0px;
 }
 
 ::-webkit-scrollbar 
 {
-  width: 10px;
+  width: 12px;
 }
 
 ::-webkit-scrollbar-track 
@@ -90,9 +102,8 @@ td
 
 img 
 {
-  max-width: 300px;
-  max-height: 300px;
-
+  max-width: 250px;
+  max-height: 250px;
 }
 
 span 
@@ -112,7 +123,7 @@ h1
   color:white;
   font-family: arial; 
   text-align:left; 
-  margin: 12px; 
+  margin: 0px; 
   padding: 0px;
   font-size: 200%; 
 }
@@ -122,7 +133,7 @@ h2
   color:#1DA1F2;
   font-family: arial; 
   text-align:left; 
-  margin: 10px; 
+  margin: 0px; 
   padding: 0px;
   font-size: 220%; 
 }
@@ -133,7 +144,7 @@ p.text
   font-size:120%;
   font-family: arial; 
   text-align:left; 
-  margin: 10px; 
+  margin: 0px; 
   padding: 0px;
 }
 
@@ -158,7 +169,6 @@ a:hover
   text-align:left; 
 }
 
-
 div.editor 
 {
   font-size: 14px;
@@ -166,7 +176,7 @@ div.editor
   color: black;
   margin: 0px;
   padding: 0px;
-  border: 2px white solid;
+  border: 0px white solid;
   background-color: white;
   border-radius: 10px;
   height: 75px;
@@ -174,7 +184,7 @@ div.editor
 
 .inputW
 {
-  width: 380px;
+  width: 473px;
 }
 
 .labels
@@ -193,11 +203,12 @@ div.editor
 
 input[type=text] 
 {
+  font-size: 14px;
   font-family:arial; 
   margin: 0px;
-  padding: 5px;
+  padding: 10px;
   border: 2px white solid;
-  width: 365px;
+  width: 450px;
   border-radius: 10px;
 }
 
