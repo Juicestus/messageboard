@@ -1,0 +1,245 @@
+/*
+ * CSS Styles for Documents
+ * (c) Justus Languell 2020-2021
+ */
+
+
+/* Main Grid */
+
+body 
+{
+    /*background-color: #0a0a0c;*/
+    background-color: black;
+    padding: 10px;
+    margin: 0px;
+}
+
+.grid-cont {
+    border: 2px #657786 solid;
+    min-width: 900px;
+    display: grid;
+    grid-template-columns: 15% 85%;
+    background-color: #0a0a0c;
+    padding: 0px;
+    margin: 0px;
+}
+
+.grid-item {
+    background-color: black;
+    padding: 10px; 
+    border: 2px #657786 solid;
+}
+
+.inputs-cont {
+    height: 150px;
+    padding: 15px 0px 0px 10px;
+}
+
+.messages-cont {
+    min-height: 400px;
+    height: 70vh;
+    overflow-y:auto
+}
+
+.sidebar-cont
+{
+    grid-row: 1 / 4;
+    padding: 15px 10px 10px 20px;
+}
+
+.tag-cont {
+    padding: 0px 0px 0px 10px;
+    height: 45px;
+}
+
+
+/* Message Grid */
+
+.msg-cont {
+    border-top: 1px #657786 solid;
+    width: 100;
+    display: grid;
+    grid-template-columns: 15% 60% 25%;
+    background-color: #0a0a0c;
+    padding: 0px;
+    margin: 0px;
+}
+
+.msg-item {
+    background-color: black;
+    padding: 10px; 
+}
+
+
+/* Form Grid */
+
+.form-cont {
+    display: grid;
+    grid-template-columns: 140px 50% 35%;
+    padding: 0px;
+    margin: 0px;
+    height: 100%;
+}
+
+.label-cont {
+    padding: 0px;
+    min-width: 10px;
+}
+
+.input-cont {
+    padding: 0px;
+}
+
+.ttl-cont {
+    padding: 5px 0px 0px 40px;
+}
+
+.post-cont {
+    padding: 15px 0px 0px 40px;
+}
+
+
+/* Form */
+
+.editor {
+    color: black;
+    margin: 0px;
+    border: 0px white solid;
+    padding: 0x;
+    background-color: white;
+    border-radius: 10px;
+    height: 90px;
+    width: 100%;
+}
+
+input[type=text] {
+    margin: 0px;
+    padding: 10px;
+    border: 2px white solid;
+    border-radius: 10px;
+    width: calc(100% - 22px);
+}
+
+.btn {
+    font-family: arial;
+    font-size: 100%;
+    margin: 0px;
+    padding: 10px;
+    border-radius: 35px;
+    background-color: #1DA1F2;
+    color: white;
+    border: 2px #1DA1F2 solid;
+}
+
+.btn:hover
+{
+    background-color: #0d659c;
+    border: 2px #0d659c solid;
+
+}
+
+.btn-wrap 
+{
+    margin: 0px;
+    padding: 0px;
+    background-color: none;
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+    border: none;
+}
+
+.upl-btn-wrap input[type=file] 
+{
+    font-size: 100px;
+    position: absolute;
+}
+
+
+/* Text */
+
+.blue {
+    color: #1DA1F2;
+}
+
+.red {
+    color: #F40009;
+}
+
+p {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+}
+p.msg {
+    color: white;
+}
+
+p.label {
+    color: white;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+p.text {
+    color: white;
+}
+
+a {
+  color:#1DA1F2;
+}
+
+a:hover {
+    color:#0d659c;
+}
+
+h1, h2, h3, h4 {
+    font-family: Arial, Helvetica, sans-serif;
+    color: white;
+    padding: 0px;
+    border: 0px;
+    margin: 0px;
+}
+
+h1 {
+    font-size: 35px;
+}
+h2 {
+    font-size: 28px;
+}
+h3 {
+    font-size: 21px;
+}
+h4 {
+    font-size: 14px;
+}
+
+img {
+    max-width: 250px;
+    max-height: 250px;
+}
+
+/* Scrollers */
+
+/*
+::-webkit-scrollbar 
+{
+  width: 12px;
+}
+
+::-webkit-scrollbar-track 
+{
+  background: #657786; 
+}
+
+::-webkit-scrollbar-thumb 
+{
+  border-radius: 10px;
+  background: #1DA1F2; 
+}
+
+::-webkit-scrollbar-thumb:hover 
+{
+  border-radius: 10px;
+  background: #0d659c; 
+}
+*/

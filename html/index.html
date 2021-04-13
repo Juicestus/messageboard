@@ -1,145 +1,113 @@
+<!-----------------------------
+ Index Document
+ (c) Justus Languell 2020-2021
+------------------------------>
 <!DOCTYPE HTML>
-<!--
-Made for 2021 CSP Create Project
-I am not responsible for the content
-posted by users of the website
--->
+
 <html>
     <head>
-        <title>CSP ChatRoom</title>
-		<!--
-		External Scripts
-		JQuery: <https://jquery.com/>
-		SocketIO: <https://socket.io/> (client side JS, not Node)
-		-->
-		<link rel="stylesheet" href="{{ url_for("static", filename="css/index.css") }}"><!--index.css for page stylesheet-->
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" 
-                integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous">
-        </script><!--JQuery-->
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/3.0.4/socket.io.js" 
-                integrity="sha512-aMGMvNYu8Ue4G+fHa359jcPb1u+ytAF+P2SCb+PxrjCdO3n3ZTxJ30zuH39rimUggmTwmh2u7wvQsDTHESnmfQ==" crossorigin="anonymous">
-        </script><!--SocketIO-->
+        <title>Justus' Imageboard</title>
 
-        <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+        <meta name="description" content="Justus' Imageboard">
+        <meta name="keywords" content="cspchatroom">
+        <meta name="author" content="Justus Languell">
 
         <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
-
         <link href="https://cdn.quilljs.com/1.3.6/quill.bubble.css" rel="stylesheet">
 
+        <link rel="stylesheet" href="{{ url_for("static", filename="css/styles.css") }}"><!--index.css for page stylesheet-->
 
-        <!-- JavaScript Code -->
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" 
+        integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous">
+        </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/3.0.4/socket.io.js" 
+            integrity="sha512-aMGMvNYu8Ue4G+fHa359jcPb1u+ytAF+P2SCb+PxrjCdO3n3ZTxJ30zuH39rimUggmTwmh2u7wvQsDTHESnmfQ==" crossorigin="anonymous">
+        </script>
+        <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+
         <script src='{{ url_for("static", filename="js/helper.js") }}'></script>
         <script src='{{ url_for("static", filename="js/quill.js") }}'></script>
         <script src='{{ url_for("static", filename="js/message.js") }}'></script>
         <script src='{{ url_for("static", filename="js/notify.js") }}'></script>
         <script src='{{ url_for("static", filename="js/socket.js") }}'></script>
-
     </head>
-    <body class="">
-        <table>
-            <tr>
-                <td>
-                    <div class="sidebar vis" style="height: 766px; width: 270px;">
-                        <h1 class=""><a href="https://www.gtsbr.org">Justus'</a> Imageboard</h1>
-                        
-                        <h3 class="" style="margin-top:0px;">Beta 12.9</h3>
-                        
-                        <table style="margin-left:12px;">
-                            <!--<tr>
-                                <td>
-                                    <button type="button" class="btn" onclick="location.href = '/login';" >Log In</button>
-                                
-                                </td>
-                                <td>
-                                    <button type="button" class="btn" onclick="location.href = '/signup';" >Sign Up</button>
-                                </td>
-                            </tr>-->
-                        </table>
-                        <br>
-                        <!--<img style="margin:20px;" src='{{ url_for("static", filename="img/jesus.gif") }}' width="200px;">-->
-                 
-                        <p class="text">
-                            Usernames are baseless pseudonym's for users and <b>mean nothing. </b>
-                            Please be kind to others! There are 0 forms of moderation <i>currently</i> besides the profanity filter. 
-                            Admin is <b><i>not responsible</i></b> for any content posted by users!
-                        </p>
-                        <h3>Privacy Policy</h3> 
-                        <p class="text">
-                            No information is saved or logged to a hard storage location. 
-                            Images are not saved either. 
-                            Everything is just handled during active server processing.
-                            Subject to change for scalability and performance settings, probably with an updated rendering method.
-                        </p>
-                    </div>
-                </td>
-                <td>
-                    <div class="mar vis" style="height: 180px; width: 1000px;"> 
-                        <form action="" method="POST" id="sendForm"> 
-                        <table>
-                            <tr>
-                                <td><p class="labels">Username: </p></td>
-                                <td>
-                                    <!--<div form="sendForm" name="username" 
-                                    class="usrdiv message" contenteditable="true" 
-                                    placeholder="Username..." id="userbox"></div>-->
-                                    <input type="text" class="username inputW" placeholder="Username" maxlength="50" id="userbox">
-                                </td>
-                                <td>
-                                    <h2>Send Message!</h2>
-                                </td>
-                                <td>
-                                    <p class="text" ></p>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><p class="labels">Message: </p></td>
-                                <td>
-                                    <!--<textarea maxlength="100" 
-                                    name="message" class="message" rows="4" cols="50" 
-                                    form="sendForm" placeholder="Message..." 
-                                    onpaste="console.log('onpastefromhtml')" id="msbox"></textarea>-->
-                                    
-                                    <!--<div id="messageArea" form="sendForm" name="message" 
-                                    class="textdiv message" contenteditable="true" 
-                                    placeholder="Message..." ></div>-->
-                                    <div class="ewrapper">
-                                    <div id="editor" class="inputW editor">
-                                        
-                                    </div>
-                                    </div>
-                                  
-                                </td>
-                                <td>
-                                    <div style="padding-left: 10px;" class="btn-w upload-btn-wrapper">
-                                        <input id="fileUpload" type='file' name="myfile" style="visibility: hidden;"/>
-                                        <button type="button" class="btn" onclick="$('#fileUpload').click();" >Upload a file</button>
-                                    </div>
-                                    <div style="padding-left: 10px;" class="btn-w">
-                                        <input type="submit" value="Send">
-                                    </div>
-                                    <div style="padding-left: 10px; width:80px;" class="btn-w">
-                                        <code id="waitmsg"></code>
-                                    </div>
-                                </td>
+    <body>
+        <div class="grid-cont">
 
-                                <!--<td  id="textareacont">-->
-                                <td>
-                                </td>
-                            </tr>
-                        
-                        </table>
+            <div class="grid-item sidebar-cont">
+                <h1><a href="https://www.gtsbr.org/">Justus'</a> Imageboard</h1>
+                <h3>Beta 13.1</h3>
+                <br>
+                <h3 class="red">In development! Report bugs to jus@gtsbr.org</h3>
+                <br>
+                <h3>About</h3>
+                <p class="text">
+                    Usernames are baseless pseudonym's for users and <b>mean nothing. </b>
+                    Please be kind to others! There are 0 forms of moderation <i>currently</i> besides the profanity filter. 
+                    Admin is <b><i>not responsible</i></b> for any content posted by users!
+                </p>
+                <h3>Privacy Policy</h3> 
+                <p class="text">
+                    The only information saved is images that come from your local device.
+                    No text is stored, only held in memory and terminated on server kill.
+                    Working on a pruning system.
+                </p>
+            </div>
 
-                        
-                        </form>
-                    </div> 
-                    <div class="vis" style="width: 1000px; height: 570px;">
-                        <table class="mar msgtable appsc"  id="messages"> 
-                            <p class="qtext"></p>
-                        </table>  
-                        <p class="text" id="newmsg" style="margin-left:20px; margin-bottom:5px;"></p>
+            <div class="grid-item inputs-cont">
+                <form action="" method="" id="sendForm"> 
+                    <div class="form-cont">
+
+                        <div class="label-cont">
+                            <p class="label">Username: </p>
+                        </div>
+
+                        <div class="input-cont">
+                            <input type="text" class="username" placeholder="Username" maxlength="50" id="userbox">
+                        </div>
+
+                        <div class="ttl-cont">
+                            <h2 class="blue">Send Message</h2>
+                        </div>
+
+                        <div class="label-cont">
+                                <p class="label">Message: </p>
+                        </div>
+
+                        <div class="input-cont">
+                            <div id="editor" class="editor">
+                            </div>
+                        </div>
+
+                        <div class="post-cont">
+
+                            <div class="btn-wrap upl-btn-wrap">
+
+                                <input id="fileUpload" type='file' name="myfile" style="visibility: hidden;"/>
+                                <button type="button" class="btn" onclick="$('#fileUpload').click();">Upload a file</button>
+                            
+                            </div>
+                            <div class="btn-wrap" style="padding-left: 15px;">
+
+                                <input class="btn" type="submit" value="Send">
+                            
+                            </div>
+                        </div>
+
                     </div>
-                </td>
-            </tr>
-        </table>
+                </form>
+
+            </div>
+
+            <div id="messages" class="grid-item messages-cont">
+
+            </div>
+
+            <div class="grid-item tag-cont">
+                <p class="text" id="newmsg"></p>
+            </div>
+
+        </div>
     </body>
 </html>

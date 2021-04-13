@@ -13,7 +13,7 @@
 // Renders messages from list on document
 function processMessages(messages) 
 {	
-	var table = '';
+	var block = '';
 
 	for (var message of messages) 
 	{
@@ -25,7 +25,6 @@ function processMessages(messages)
 			breaks = '';
 		};
 
-		console.log(message.src)
 
 		if (message.webimg != 'NOIMAGE')
 		{
@@ -36,13 +35,16 @@ function processMessages(messages)
 		{
 			image = `<img id src='${message.src}'></img>`;
 		};
-		
-		table += `<tr><td class="msgtd"><span>${message.username}</span></td><td class="msgtd"><span style='width: 575px;'>${message.msg}${image}</span></td><td class="msgtd"><span><code>${message.time}</code></span></td></tr>`
-		
+				
+		block += '<div class="msg-cont">';
+		block += `<div class="msg-item"><p class="msg">${message.username}</p></div>`;
+		block += `<div class="msg-item"><p class="msg">${message.msg}${image}</p></div>`;
+		block += `<div class="msg-item"><p class="msg">${message.time}</p></div>`;
+		block += '</div>';
 		scrollDown();
 	};
-	table += '</table>'; 
-	document.getElementById('messages').innerHTML = table; 
+	
+	document.getElementById('messages').innerHTML = block; 
 };
 
 // Sends socket to server
