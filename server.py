@@ -3,7 +3,7 @@
 # Main server file
 # (c) Justus Languell 2020-2021
 
-from message import Message # plz dont cause name issues if u do ill cry
+from message import Message 
 
 from flask import Flask, render_template, url_for 
 from flask_socketio import SocketIO, emit         
@@ -17,36 +17,20 @@ import base64
 from threading import Lock, Thread
 from time import sleep
 
+
 # INITIAL VARS
 
-
-messages = list() # Instantiate list of messages
+messages = list() 
 
 restrictedwords = [] # Add words to be censored
 imgnum = 1
-
-# add here a thread to prune the messages and images 
-# storage system based in hard memory. 
-# Or dont be a cuck and do it now.
-# or not...
-
-# it doesnt work im about to cry
 
 
 threads = []
 
 def pruner():
 
-    print('rn this thread dont do nothin')
-    '''    
-    while True:
-        #messages = messages[1:]
-        try:
-            messages = messages[-3:]
-        except:
-            print('exception')
-        sleep(5)
-    '''
+    print('Pruner thread loop goes here')
 
 threads.append(Thread(target=pruner))
 
@@ -56,58 +40,70 @@ threads.append(Thread(target=pruner))
 # in the other file so ima just leave this part /:
 PF = ProfanityFilter()
 
-# legal characters to display
-legalchars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890,./<>:?;\'"[]{}|-_=+!@#$%^&*()~≠±–—¡™£¢∞§¶• '
+legalchars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890,./<>:?;\'"[]{}|-_=+!@#$%^&*()~≠±–—¡™£¢∞§¶•\   '
 
-formatTags = [('**:','<b>'),('**','</b>'),('*:','<i>'),('*','</i>'),('#:','<code>'),('#','</code>')] 
-# List of tuples of replacments for formating 
+formatTags = [('**:','<b>'),(':**','</b>'),('*:','<i>'),(';*','</i>'),('#:','<code>'),(':#','</code>'),(':::','<code>'),(';;;','</code>')] 
 
-app = Flask(__name__,template_folder='html') # Get Flask App
-socketio = SocketIO(app) # Setup Socket Enviorment with App
+app = Flask(__name__,template_folder='html') 
+socketio = SocketIO(app) 
 
-
+# Ignore this
+def jesus(tag):
+    jesus = url_for("static", filename="img/jesus.gif")
+    style = '''<style>
+    body {
+        background-color: black;
+    }
+    img {
+        margin:20px;
+    }
+    h1 {
+        color: white;
+        font-family: arial;
+    }
+    </style>'''
+    return f'''{style}<h1>{tag} coming soon!</h1>
+    <img style="" src="{jesus}" max-width="600px;">'''
 
 # SOCKETIO EVENTS
 @socketio.event                                 
-def updateMessage(message):                         # Message comes in from client as param "message"
+def updateMessage(message):                         
 
-    message = Message(message, PF)                      # Instantiate the message as an instance of our class
+    message = Message(message, PF)                      
 
     message.formatImg()
-    message.makeSafe()                              # Comment this part out later u lazy fuck
+    message.makeSafe()
+    message.searchReplace(formatTags)                             
     message.formatLinks()
     message.legalize(legalchars)
     message.censor(restrictedwords)
-    message.searchReplace(formatTags)
 
     messages.append(message.message)
 
-    emit('newMessage',messages,broadcast=True)   # List of messages is sent to all the clients to be updated
+    emit('newMessage',messages,broadcast=True)   
 
 
 @socketio.event                                 
-def connected():                                 # On client connection
+def connected():                                 
 
-    emit('newMessage',messages,broadcast=True)   # Send current messages to client
+    emit('newMessage',messages,broadcast=True)  
 
 # ROUTES
 @app.route('/',methods=['GET'])                                        
 def index():            
 
-    return render_template('index.html')         # Serves index.html
+    return render_template('index.html')         
 
 @app.route('/login',methods=['GET','POST'])
 def login():
 
-    return '''<h1>Login coming soon!</h1>
-    img style="margin:20px;" src='{{ url_for("static", filename="img/jesus.gif") }}' max-width="600px;">'''
-
+    return jesus('Login')
 
 @app.route('/signup',methods=['GET','POST'])
 def signup():
 
-    return '''<h1>Signup coming soon!</h1>
-    img style="margin:20px;" src='{{ url_for("static", filename="img/jesus.gif") }}' max-width="600px;">'''
+    return jesus('Signup')
+
 
 def runThreads():
 
@@ -123,7 +119,7 @@ if __name__ == '__main__':
         runThreads()
 
     if '-d' in sys.argv:
-        socketio.run(app,debug=True)          # Run SocketIO App and Async subprocesses in debug mode
+        socketio.run(app,debug=True)         
 
     else:
         socketio.run(app,host='0.0.0.0',port=80,debug=False) # Run App on port 80 for production

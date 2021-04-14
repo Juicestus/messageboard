@@ -10,6 +10,7 @@ from datetime import datetime
 import re                                         
 import sys                                        
 import base64
+from django.utils.html import escape as htmlspecialchars
 
 class Message():
 
@@ -27,13 +28,16 @@ class Message():
 
         message = self.message['msg'][:1000]    # Delete all the extra characters
 
-        message = message.replace('<','&lt;') # Replace < with html safe < 
-        message = message.replace('>','&gt;') # Replace > with html safe > 
-        message = message.replace('<','&lt;') # Replace < with html safe < 
-        message = message.replace('>','&gt;') # Replace > with html safe > 
+        #message = message.replace('<','&lt;') # Replace < with html safe < 
+        #message = message.replace('>','&gt;') # Replace > with html safe > 
+        #message = message.replace('<','&lt;') # Replace < with html safe < 
+        #message = message.replace('>','&gt;') # Replace > with html safe > 
 
-        message = message.replace('\n','<br>')  # Replace \n with html safe <br>
-        message = message.replace('\t','&Tab;') # Replace \t with html safe &Tab;
+        message = htmlspecialchars(message)
+
+        message = message.replace('\n','<br>')  
+        message = message.replace(' ','&nbsp;')
+        message = message.replace('\t','&Tab;') 
 
         self.message['msg'] = message
 

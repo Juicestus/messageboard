@@ -38,13 +38,15 @@ body
 .messages-cont {
     min-height: 400px;
     height: 70vh;
-    overflow-y:auto
+    overflow-y: auto;
+    overflow-x: hide;
 }
 
 .sidebar-cont
 {
     grid-row: 1 / 4;
     padding: 15px 10px 10px 20px;
+    overflow-x: scroll;
 }
 
 .tag-cont {
@@ -63,13 +65,26 @@ body
     background-color: #0a0a0c;
     padding: 0px;
     margin: 0px;
+    overflow-x: hide;
 }
 
 .msg-item {
     background-color: black;
     padding: 10px; 
+    overflow-x: hide;
 }
 
+.right {
+    float: right;
+}
+
+.left {
+    float: left;
+}
+
+.bottom-tags {
+    width: 600px;
+}
 
 /* Form Grid */
 
@@ -217,6 +232,7 @@ img {
     max-width: 250px;
     max-height: 250px;
 }
+
 
 /* Scrollers */
 

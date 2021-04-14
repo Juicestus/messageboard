@@ -61,3 +61,36 @@ function qClear(q)
     q.setContents([{ insert: '' }]);
 };
 
+// Controls character limits
+function qLimit(quill)
+{
+    var limit = 500;
+    var threshold = 50;
+
+    document.getElementById('charmsg').innerHTML = `• 0/${limit} Chars&nbsp;&nbsp;`;
+
+    quill.on('text-change', function(delta, old, source) 
+    {
+        var len = quill.getLength();
+
+        var display = len - 1;
+
+        if (len > limit) 
+        {
+            quill.deleteText(limit, len);
+        };
+
+        if (len > limit + 1)
+        {
+            display--;
+        }
+        
+        var warning = `• ${display}/${limit} Chars&nbsp;&nbsp;`;
+        if (len > limit - threshold)
+        {
+            warning = '<i class="red">' + warning + "</i>";
+        };
+        
+        document.getElementById('charmsg').innerHTML = warning;
+    });
+};

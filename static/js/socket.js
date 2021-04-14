@@ -26,11 +26,13 @@
 
 var lastSent = 0; // The time since last sent message (UNIX timestamp)
 var sendDelay = 5;	// Delay between sends
+var msgCount = 0;
 
 $(document).ready(function() 
 {
 
 	var quill = getQuillE();
+	qLimit(quill);
 
     document.getElementById('newmsg').innerHTML = `There are no new messages.`;
 	scrollDown(); 
@@ -85,7 +87,7 @@ $(document).ready(function()
 				var time = (new Date).getTime();
 				var waittime = (lastSent + (sendDelay * 1000) - time);
 				var disptime = Math.round(waittime / 1000);
-				document.getElementById('waitmsg').innerHTML = `Must wait ${disptime} more seconds!`;
+				document.getElementById('waitmsg').innerHTML = `• Must wait ${disptime} more seconds!&nbsp;&nbsp;&nbsp;`;
 
 				setTimeout(function()
 				{
@@ -104,14 +106,18 @@ $(document).ready(function()
 		var firsttime = messages[0].time; 
 		processMessages(messages);
 		notifyMe();	
-		newmsgs++;
 
-		if (newmsgs != 1) {var s1 = 's';} else {var s1 = '';}; 
-		if (newmsgs != 1) {var a1 = 'are';} else {var a1 = 'is';}; 
+		if (len > msgCount)
+		{
+			msgCount = len;
+		};
+
+		if (msgCount != 1) {var s1 = 's';} else {var s1 = '';}; 
+		if (msgCount != 1) {var a1 = 'are';} else {var a1 = 'is';}; 
 		if (len != 1) {var s2 = 's';} else {var s2 = '';};
 		if (len != 1) {var a2 = 'are';} else {var a2 = 'is';};
 
-		document.getElementById('newmsg').innerHTML = `• ${newmsgs} new message${s1} &nbsp;	&nbsp;`; //• ${len} message${s2} since ${firsttime}`; 
+		document.getElementById('newmsg').innerHTML = `• ${msgCount} new message${s1} &nbsp;	&nbsp;`; //• ${len} message${s2} since ${firsttime}`; 
 		scrollDown();
 	});
 });
