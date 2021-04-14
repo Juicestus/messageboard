@@ -34,7 +34,7 @@ $(document).ready(function()
 	var quill = getQuillE();
 	qLimit(quill);
 
-    document.getElementById('newmsg').innerHTML = `There are no new messages.`;
+    document.getElementById('newmsg').innerHTML = `There are no new messages.&nbsp;&nbsp;&nbsp;&nbsp;`;
 	scrollDown(); 
 	var socket = io();	
     newmsgs = -1;
@@ -52,7 +52,8 @@ $(document).ready(function()
 
 			if (time > lastSent + (sendDelay * 1000)) 
 			{	
-				var username = $('input.username').val();
+				//var username = $('input.username').val();
+				var username = USER;
 				var file = document.getElementById('fileUpload').files[0];
 
 				var delta = quill.getContents();
@@ -117,7 +118,7 @@ $(document).ready(function()
 		if (len != 1) {var s2 = 's';} else {var s2 = '';};
 		if (len != 1) {var a2 = 'are';} else {var a2 = 'is';};
 
-		document.getElementById('newmsg').innerHTML = `• ${msgCount} new message${s1} &nbsp;	&nbsp;`; //• ${len} message${s2} since ${firsttime}`; 
+		document.getElementById('newmsg').innerHTML = `• ${msgCount} new message${s1} &nbsp;&nbsp;&nbsp;&nbsp;`; //• ${len} message${s2} since ${firsttime}`; 
 		scrollDown();
 	});
 });

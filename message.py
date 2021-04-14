@@ -12,21 +12,25 @@ import sys
 import base64
 from django.utils.html import escape as htmlspecialchars
 
+from profanity_filter import ProfanityFilter
+
 class Message():
 
-    def __init__(self,messageIN,PF,censorChar='•'):
+    def __init__(self,messageIN,censorChar='•'):
 
         self.message = messageIN
-        self.filter = PF
+        self.filter = ProfanityFilter()
         self.filter.censor_char = censorChar
 
 
+    # Handle HTML Special Chars
+    # Stop XSS injects
     def makeSafe(self):
 
         # Time is converted from UNIX timestamp into readable format
         self.message['time'] = datetime.utcfromtimestamp(int(self.message['time']) / 1000).strftime('%Y-%m-%d %H:%M:%S') 
 
-        message = self.message['msg'][:1000]    # Delete all the extra characters
+        message = self.message['msg'][:1000]   
 
         #message = message.replace('<','&lt;') # Replace < with html safe < 
         #message = message.replace('>','&gt;') # Replace > with html safe > 
@@ -42,70 +46,78 @@ class Message():
         self.message['msg'] = message
 
 
+    # Formats links as <a> tags
     def formatLinks(self):
 
-        message = '' # New string for new message
+        message = '' #
 
-        for word in self.message['msg'].split(' '): # Iterates through every word in message
+        for word in self.message['msg'].split(' '): 
 
-            if word[0:4] == 'http': # If string starts with "http", meaning it's a link
-                message += f'<a href="{word}">{word}</a> ' # Format it to render as an HTML link and add it into the new message
+            if word[0:4] == 'http':
+                message += f'<a href="{word}">{word}</a> ' 
 
-            else: # If not that
-                message += word + ' ' # Just add it to the new message regular
+            else: 
+                message += word + ' ' 
 
-        self.message['msg'] = message # Set the message to the new link formatted message
+        self.message['msg'] = message 
 
 
+    # Removes illegals characters not defined in legalchars
     def legalize(self,legalchars):
 
-        message = '' # New string for new message
+        message = ''
 
-        for char in self.message['msg'][:-1]: # Itereate through every chracter in the message 
+        for char in self.message['msg'][:-1]: 
 
-            if char not in legalchars: # if the character is not legal
-                message += '&diams;' # Replace it with the unknown character symbol
+            if char not in legalchars: 
+                message += '&diams;' 
 
-            else: # If not
-                message += char # Just leave it be
+            else:
+                message += char 
 
-        self.message['msg'] = message # Set the message to the new link formatted message
+        self.message['msg'] = message 
 
-        username = '' # New string for new message
+        username = ''
 
-        for char in self.message['username']: # Itereate through every chracter in the message 
+        for char in self.message['username']:
 
-            if char not in legalchars: # if the character is not legal
-                username += '&diams;' # Replace it with the unknown character symbol
+            if char not in legalchars: 
+                username += '&diams;'
 
-            else: # If not
-                username += char # Just leave it be
+            else:
+                username += char
 
-        self.message['username'] = username # Set the message to the new link formatted message
+        self.message['username'] = username 
 
+
+    # Censors restricted words
     def censor(self,restrictedwords):
 
         self.message['msg'] = self.filter.censor(self.message['msg'])
 
         self.message['username'] = self.filter.censor(self.message['username'])
 
-        for word in restrictedwords:  # Iterates through words to censor
+        for word in restrictedwords: 
 
-            # Replaces them in the username, case insensitive because of regex
             self.message['username'] = re.sub(word, self.filter.censor_char * len(word), self.message['username'], flags=re.IGNORECASE)  
 
-            # Replaces them in the message, case insensitive because of regex
             self.message['msg'] = re.sub(word, self.filter.censor_char * len(word), self.message['msg'], flags=re.IGNORECASE)  
 
 
+    # Searches and replaces text
     def searchReplace(self,tags):
 
-        for search,replace in tags:  # Iterates through the search and replaces of list of tuples: fontTags
+        for search,replace in tags:  
 
-            # Replaces the search with the replace, for bold, italic, and code formating
             self.message['msg'] = self.message['msg'].replace(search,replace) 
             self.message['username'] = self.message['username'].replace(search,replace) 
 
+
+    # Image handling :
+    # - Encoding
+    # - Saving
+    # - URLFOR
+    # - Transfer
     def formatImg(self):
 
         if self.message['src'] != 'NOIMAGE':
@@ -120,9 +132,11 @@ class Message():
 
             self.message['src'] = url_for("static", filename=filename)
 
+
+    # Incase of admin tag
+    # Kinda deprecated
     def tag(self, tagr, tagl):
 
         self.message['msg'] = self.message['msg'].replace(tagl,'<')
         self.message['msg'] = self.message['msg'].replace(tagr,'>')
 
-# sexy class go brrrrr

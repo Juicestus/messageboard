@@ -59,6 +59,11 @@
                 <form action="" method="" id="sendForm"> 
                     <div class="form-cont">
 
+                        <script>
+                            var USER = "{{currentUser}}";
+                        </script>
+
+                        <!--
                         <div class="label-cont">
                             <p class="label">Username: </p>
                         </div>
@@ -70,7 +75,20 @@
                         <div class="ttl-cont">
                             <h2 class="blue">Send Message</h2>
                         </div>
+                        -->
 
+                        <div class="cUser-cont">
+                            <h2>
+                                Welcome 
+                                <i class="blue">{{currentUser}}</i> 
+                                &nbsp;&nbsp;&nbsp;&nbsp; <a href="login">Log In</a>
+                                &nbsp;&nbsp;&nbsp;&nbsp; <a href="signup">Sign Up</a>
+                                &nbsp;&nbsp;&nbsp;&nbsp; <a href="login">Log Out</a>
+
+                            </h2>
+                        </div>
+
+                        
                         <div class="label-cont">
                                 <p class="label">Message: </p>
                         </div>

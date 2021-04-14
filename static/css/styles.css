@@ -31,7 +31,7 @@ body
 }
 
 .inputs-cont {
-    height: 150px;
+    height: 170px;
     padding: 15px 0px 0px 10px;
 }
 
@@ -94,6 +94,12 @@ body
     padding: 0px;
     margin: 0px;
     height: 100%;
+}
+
+.cUser-cont {
+    margin-left: 10px;
+    grid-column: 1 / 4;
+    margin-bottom: 15px;
 }
 
 .label-cont {
