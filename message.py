@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-# Message Class File
+# Message Class
 # (c) Justus Languell 2020-2021
 
 # I know i already imported these but fuck you!

@@ -11,7 +11,7 @@
  */
 
 // Renders messages from list on document
-function processMessages(messages) 
+function processMessages(messages, username) 
 {	
 	var block = '';
 
@@ -35,12 +35,26 @@ function processMessages(messages)
 		{
 			image = `<img id src='${message.src}'></img>`;
 		};
-				
-		block += '<div class="msg-cont">';
+
+
+		var h = '';
+
+		if (username != 'Guest')
+		{
+			if (message.msg.includes('@'+username))
+			{
+				h = 'highlight';
+			};
+		};
+
+		block += `<div class="msg-cont ${h}">`;
+
 		block += `<div class="msg-item"><p class="msg">${message.username}</p></div>`;
 		block += `<div class="msg-item"><p class="msg">${message.msg}${image}</p></div>`;
 		block += `<div class="msg-item"><p class="msg">${message.time}</p></div>`;
 		block += '</div>';
+
+
 		scrollDown();
 	};
 	

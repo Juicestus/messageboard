@@ -4,11 +4,11 @@
 # (c) Justus Languell 2020-2021
 
 from message import Message 
-#from user import DataBase, User
+from user import UsersRepository, User
 
 from flask import Flask, render_template, url_for, request, abort, redirect, Response
 from flask_socketio import SocketIO, emit         
-from flask_login import LoginManager, login_required, UserMixin, login_user, current_user
+from flask_login import LoginManager, login_required, UserMixin, login_user, logout_user, current_user
 
 from datetime import datetime                     
 import re                                         
@@ -19,77 +19,9 @@ import base64
 
 from threading import Lock, Thread
 from time import sleep
-
-
-threads = []
-
-def pruner():
-
-    print('Pruner thread loop goes here')
-
-threads.append(Thread(target=pruner))
-
-
-
-# User classes and methods
-# Move to User.py
-
-class User(UserMixin):
-
-    def __init__(self, username, password, id, active=True):
-
-        self.id = id
-        self.username = username
-        self.password = password
-        self.active = active
-
-    def getId(self):
-
-        return self.id
-
-    def isActive(self):
-
-        return self.active
-
-    def getAuthToken(self):
-
-        return make_secure_token(self.username, keys=secretKey)
-
-
-class Users:
-
-    def __init__(self):
-
-        self.users = {}
-        self.userIDs = {}
-        self.identifier = 0
-
-    def saveUser(self, user):
-
-        self.userIDs.setdefault(user.id, user)
-        self.users.setdefault(user.username, user)
-
-    def getUser(self, username):
-
-        return self.users.get(username)
-
-    def getUsersByID(self, userid):
-
-        return self.userIDs.get(userid)
-
-    def nextIndex(self):
-
-        self.identifier +=1
-        return self.identifier
-
-    def listUsers(self):
-
-        return list(self.users.keys())
-
-
+from hashlib import sha256
 
 messages = list() 
-users = Users()
 
 restrictedwords = [] 
 imgnum = 1
@@ -106,86 +38,21 @@ login_manager.login_view = "login"
 login_manager.init_app(app)
 socketio = SocketIO(app) 
 
+users_repository = UsersRepository()
 
-@app.route('/login',methods=['GET','POST'])
-def login():
+def sha(s):
+    return sha256(bytes(s,'utf-8')).hexdigest()
 
-    note = ''
-
-    print(users.listUsers())
-    if request.method == 'POST':
-
-        username = request.form['username']
-        password = request.form['password']
-
-        registeredUser = users.getUser(username)
-
-        if registeredUser != None and registeredUser.password == password:
-            return redirect('/')
-        else:
-            note = '<p style="color: red;">Login Failed: User Not Found!</p><a href="signup">Sign Up?</a>'
-        #return redirect(url_for('home'))
-        
+@app.route('/')
+@login_required
+def index():
     
-    return Response(f'''
-        <h1>Login</h1>
-        <p>Don't have an account? <a href="signup">Sign Up?</a></p>
-        <form action="" method="post">
-            <p><input type=text name=username>
-            <p><input type=password name=password>
-            <p><input type=submit value=Login>
-        </form>
-        {note}
-        ''')
-        
+    return render_template('index.html', currentUser = current_user.username)   
 
-@app.route('/signup',methods=['GET','POST'])
-def signup():
-    
-    note = ''
+@socketio.event                                 
+def connected():                                 
 
-    if request.method == 'POST':
-
-        username = request.form['username']
-        password = request.form['password']
-        confirm = request.form['confirm']
-
-        if password == confirm:
-
-            if username not in users.listUsers():
-
-                newUser = User(username, password, users.nextIndex())
-
-                users.saveUser(newUser)
-
-                return redirect('/')
-
-            else:
-                note = '<p style="color: red;">Signup Failed: Username Already Registered!</p>'
-
-        else:
-            note = '<p style="color: red;">Signup Failed: Password Do Not Match!</p>'
-
-
-    return Response(f'''
-        <h1>Sign Up</h1>
-        <form action="" method="post">
-        <p><input type=text name=username placeholder="Enter username">
-        <p><input type=password name=password placeholder="Enter password">
-        <p><input type=password name=confirm placeholder="Confirm password">
-        <p><input type=submit value=Register>
-        </form>
-        {note}
-        ''') 
-
-@app.errorhandler(401)
-def loginFailed(e):
-    return Response('<p>Login Failed!</p>')
-
-
-@app.errorhandler(404)
-def pageNotFound(e):
-    return Response('<p>Page Not Found!</p>')
+    emit('newMessage',messages,broadcast=True)  
 
 
 @socketio.event                                 
@@ -205,43 +72,120 @@ def updateMessage(message):
     emit('newMessage',messages,broadcast=True)   
 
 
-@socketio.event                                 
-def connected():                                 
+@app.route('/login' , methods=['GET' , 'POST'])
+def login():
 
-    emit('newMessage',messages,broadcast=True)  
+    serverError = ''
 
-# ROUTES
-@app.route('/',methods=['GET'])     
-#@login_required        
-def index():            
+    if request.method == 'POST':
 
-    try:
-        cuser = current_user.username
-    except AttributeError:
-        cuser = 'Guest'
+        username = request.form['username']
+        password = sha(username + request.form['password'])
 
-    return render_template('index.html', currentUser = cuser)         
+        registeredUser = users_repository.get_user(username)
+
+        if registeredUser != None and registeredUser.password == password:
+
+            login_user(registeredUser)
+            return redirect('/')
+
+        else:
+            serverError = 'Login Failed: Cannot find user and password combination! Sign Up?'
+
+    return render_template('login.html',serverError=serverError)
+
+
+@app.route('/signup' , methods = ['GET' , 'POST'])
+def register():
+    serverError = ''
+
+    if request.method == 'POST':
+
+        username = request.form['username']
+        password = sha(username + request.form['password'])
+        confirm = sha(username + request.form['confirm'])
+
+        if password == confirm:
+
+            if username not in users_repository.list_users():
+
+                new_user = User(username , password , users_repository.next_index())
+                users_repository.save_user(new_user)
+
+                login_user(new_user)
+                return redirect('/')
+
+            else:
+                serverError = 'Signup Failed: Username Already Registered!'
+        else:
+            serverError = 'Signup Failed: Password Do Not Match!'
+
+    return render_template('signup.html',serverError=serverError)
+  
+
+@app.errorhandler(404)
+def Not_Found(e):
+
+    err = str(e).split(':')
+    return render_template('error.html',err=err[0],info=err[1])
+
+
+@app.errorhandler(401)
+def Unauthorized(e):
+
+    err = str(e).split(':')
+    return render_template('error.html',err=err[0],info=err[1])
+
+
+@app.errorhandler(403)
+def Forbidden(e):
+
+    err = str(e).split(':')
+    return render_template('error.html',err=err[0],info=err[1])
+
+
+@app.errorhandler(400)
+def Bad_Request(e):
+
+    err = str(e).split(':')
+    return render_template('error.html',err=err[0],info=err[1])
+
+
+@app.errorhandler(418)
+def teapot(e):
+
+    err = str(e).split(':')
+    return render_template('error.html',err=err[0],info=err[1])
+
+
+@app.errorhandler(500)
+def Internal_Server_Error(e):
+
+    err = str(e).split(':')
+    return render_template('error.html',err=err[0],info=err[1])
+
 
 @login_manager.user_loader
-def loadUser(userid):
-    return users.getUsersByID(userid)
+def load_user(userid):
+
+    r = users_repository.get_user_by_id(userid)
+    return r
 
 
-def runThreads():
+@app.route('/logout')
+@login_required
+def logout():
 
-    for thread in threads:
-        thread.daemon = True
-        thread.start()
-
+    logout_user()
+    return redirect('/')
 
 if __name__ == '__main__':
 
-    if not '-t' in sys.argv:
-        runThreads()
+    #if not '-t' in sys.argv:
+        #runThreads()
 
     if '-d' in sys.argv:
         socketio.run(app,debug=True)         
 
     else:
         socketio.run(app,host='0.0.0.0',port=80,debug=False) 
-

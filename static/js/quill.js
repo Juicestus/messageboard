@@ -14,7 +14,7 @@ function getQuillE()
         modules: {
             toolbar: toolbarOptions
         },
-        placeholder: 'Message. You can paste images here or use the file upload. Limit 1 image for testing.'
+        placeholder: 'Message chat. Paste or upload an image. Use @ to notify other users.'
 	});
     return q;
 };

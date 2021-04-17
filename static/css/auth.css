@@ -1,0 +1,52 @@
+/*
+ * CSS Styles for Authentication Documents
+ * (c) Justus Languell 2020-2021
+ */
+
+body {
+    padding: 15px;
+}
+
+input[type=text], input[type=password] {
+    margin: 0px;
+    padding: 10px;
+    border: 2px white solid;
+    border-radius: 10px;
+    width: 660px;
+}
+
+.btn {
+    font-family: arial;
+    font-size: 100%;
+    margin: 0px;
+    padding: 10px;
+    border-radius: 35px;
+    background-color: #1DA1F2;
+    color: white;
+    border: 2px #1DA1F2 solid;
+}
+
+.btn:hover
+{
+    background-color: #0d659c;
+    border: 2px #0d659c solid;
+
+}
+
+.btn-wrap 
+{
+    margin: 0px;
+    padding: 0px;
+    background-color: none;
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+    border: none;
+}
+
+.upl-btn-wrap input[type=file] 
+{
+    font-size: 100px;
+    position: absolute;
+}
+

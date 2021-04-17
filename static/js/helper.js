@@ -3,8 +3,6 @@
  * (c) Justus Languell 2020-2021
  */
 
-console.log('Helper Loaded')
-
 // Scrolls to bottom
 function scrollDown() 
 {

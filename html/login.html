@@ -1,0 +1,45 @@
+<!-----------------------------
+ Log In Document
+ (c) Justus Languell 2020-2021
+------------------------------>
+<!DOCTYPE HTML>
+
+<html>
+    <head>
+        <title>Justus' Imageboard</title>
+
+        <meta name="description" content="Justus' Imageboard">
+        <meta name="keywords" content="cspchatroom">
+        <meta name="author" content="Justus Languell">
+
+        <link rel="stylesheet" href="{{ url_for("static", filename="css/styles.css") }}">
+        <link rel="stylesheet" href="{{ url_for("static", filename="css/auth.css") }}">
+
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" 
+        integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous">
+        </script>
+
+        <script src='{{ url_for("static", filename="js/login.js") }}'></script>
+
+    </head>
+    <body>
+        <div class="mainbox">
+        <h1>
+            Log In 
+            &nbsp;&nbsp;&nbsp;&nbsp; <a href="signup">Sign Up</a>
+            &nbsp;&nbsp;&nbsp;&nbsp; <a href="/">Home</a>
+        </h1>
+        <form action="" method="POST"><br>
+        <h3 class="text">Don't have an account? <a href="signup">Sign Up?</a></h3>
+        <p><input maxlength="18" id="username" type=text name=username placeholder="Enter username">
+        <p><input maxlength="24" id="password" type=password name=password placeholder="Enter password">
+        <p><input class="btn" id="submit" type=submit value="Log In" disabled/>
+        </form>
+        <h3 class="red" id="usernameError"></h3>
+        <h3 class="red" id="passwordError"></h3>
+
+        <h3 class="red"><i>{{serverError}}</i></h3>
+        </div>
+    </body>
+</html>

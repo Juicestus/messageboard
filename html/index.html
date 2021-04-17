@@ -15,7 +15,7 @@
         <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
         <link href="https://cdn.quilljs.com/1.3.6/quill.bubble.css" rel="stylesheet">
 
-        <link rel="stylesheet" href="{{ url_for("static", filename="css/styles.css") }}"><!--index.css for page stylesheet-->
+        <link rel="stylesheet" href="{{ url_for("static", filename="css/styles.css") }}">
 
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" 
@@ -31,13 +31,18 @@
         <script src='{{ url_for("static", filename="js/message.js") }}'></script>
         <script src='{{ url_for("static", filename="js/notify.js") }}'></script>
         <script src='{{ url_for("static", filename="js/socket.js") }}'></script>
+
+        <script>
+            var USER = "{{currentUser}}";
+        </script>
+
     </head>
     <body>
         <div class="grid-cont">
 
             <div class="grid-item sidebar-cont">
                 <h1><a href="https://www.gtsbr.org/">Justus'</a> Imageboard</h1>
-                <h3>Beta 13.1</h3>
+                <h3>Beta 15.1</h3>
                 <br>
                 <h3 class="red">In development! Report bugs to jus@gtsbr.org</h3>
                 <br>
@@ -55,46 +60,31 @@
                 </p>
             </div>
 
+            <div class="grid-item">
+                    <div class="user-cont">
+                        <h2>
+                            Welcome: 
+                            <i class="blue">{{currentUser}}</i> 
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="login">Log In</a>
+                            &nbsp;&nbsp;&nbsp;&nbsp; <a href="signup">Sign Up</a>
+                            &nbsp;&nbsp;&nbsp;&nbsp; <a href="logout">Log Out</a>
+
+                        </h2>
+                    </div>
+                
+            </div>
+
+            <div id="messages" class="grid-item messages-cont">
+
+            </div>
+
             <div class="grid-item inputs-cont">
                 <form action="" method="" id="sendForm"> 
                     <div class="form-cont">
 
-                        <script>
-                            var USER = "{{currentUser}}";
-                        </script>
-
-                        <!--
-                        <div class="label-cont">
-                            <p class="label">Username: </p>
-                        </div>
-
-                        <div class="input-cont">
-                            <input type="text" class="username" placeholder="Username" maxlength="50" id="userbox">
-                        </div>
-
-                        <div class="ttl-cont">
-                            <h2 class="blue">Send Message</h2>
-                        </div>
-                        -->
-
-                        <div class="cUser-cont">
-                            <h2>
-                                Welcome 
-                                <i class="blue">{{currentUser}}</i> 
-                                &nbsp;&nbsp;&nbsp;&nbsp; <a href="login">Log In</a>
-                                &nbsp;&nbsp;&nbsp;&nbsp; <a href="signup">Sign Up</a>
-                                &nbsp;&nbsp;&nbsp;&nbsp; <a href="login">Log Out</a>
-
-                            </h2>
-                        </div>
-
-                        
-                        <div class="label-cont">
-                                <p class="label">Message: </p>
-                        </div>
-
                         <div class="input-cont">
                             <div id="editor" class="editor">
+
                             </div>
                         </div>
 
@@ -111,18 +101,14 @@
                                 <input class="btn" type="submit" value="Send">
                             
                             </div>
-                        </div>
-
+                        </div>    
+                        
                     </div>
                 </form>
-
-            </div>
-
-            <div id="messages" class="grid-item messages-cont">
-
             </div>
 
             <div class="grid-item tag-cont">
+                
                 <div class="bottom-tags">
                 <p class="text left" id="newmsg"></p>
                 <p class="text left" id="charmsg"></p>

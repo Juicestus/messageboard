@@ -105,7 +105,7 @@ $(document).ready(function()
 		var messages = Array.from(servedMessages); 
 		var len = messages.length;	
 		var firsttime = messages[0].time; 
-		processMessages(messages);
+		processMessages(messages, USER);
 		notifyMe();	
 
 		if (len > msgCount)

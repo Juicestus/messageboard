@@ -1,15 +1,5 @@
 To Do
-- Fix commenting on Server
-
-- Write logins and profiles and stuff
-    - Write Signup
-	- Write Database
-	- User Class
-	- Hashing!!!
-	- Login
-	- User profiles
-	- User used in chat
-	- All the shit u didnt think about
-
-- UI for login and stuff
-- Write server meta infrastructure ? ***
+- client side sha256
+- enter to send
+- fix spaces in compressed UI
+- more advanced periphery document pages

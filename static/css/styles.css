@@ -1,5 +1,5 @@
 /*
- * CSS Styles for Documents
+ * Main CSS Styles for Documents
  * (c) Justus Languell 2020-2021
  */
 
@@ -31,20 +31,20 @@ body
 }
 
 .inputs-cont {
-    height: 170px;
+    height: 104px;
     padding: 15px 0px 0px 10px;
 }
 
 .messages-cont {
     min-height: 400px;
-    height: 70vh;
+    height: 62vh;
     overflow-y: auto;
     overflow-x: hide;
 }
 
 .sidebar-cont
 {
-    grid-row: 1 / 4;
+    grid-row: 1 / 5;
     padding: 15px 10px 10px 20px;
     overflow-x: scroll;
 }
@@ -62,14 +62,17 @@ body
     width: 100;
     display: grid;
     grid-template-columns: 15% 60% 25%;
-    background-color: #0a0a0c;
+    background-color: black;
     padding: 0px;
     margin: 0px;
     overflow-x: hide;
 }
 
+.highlight {
+    border: 2px yellow solid;
+}
+
 .msg-item {
-    background-color: black;
     padding: 10px; 
     overflow-x: hide;
 }
@@ -86,20 +89,21 @@ body
     width: 600px;
 }
 
-/* Form Grid */
-
-.form-cont {
-    display: grid;
-    grid-template-columns: 140px 50% 35%;
-    padding: 0px;
-    margin: 0px;
-    height: 100%;
-}
-
 .cUser-cont {
     margin-left: 10px;
     grid-column: 1 / 4;
     margin-bottom: 15px;
+}
+
+
+/* Form Grid */
+
+.form-cont {
+    display: grid;
+    grid-template-columns: 60% 35%;
+    padding: 0px;
+    margin: 0px;
+    height: 100%;
 }
 
 .label-cont {
@@ -143,7 +147,7 @@ input[type=text] {
 
 .btn {
     font-family: arial;
-    font-size: 100%;
+    font-size: 150%;
     margin: 0px;
     padding: 10px;
     border-radius: 35px;

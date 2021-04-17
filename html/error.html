@@ -1,0 +1,32 @@
+<!-----------------------------
+ Error Document
+ (c) Justus Languell 2020-2021
+------------------------------>
+<!DOCTYPE HTML>
+
+<html>
+    <head>
+        <title>Justus' Imageboard</title>
+
+        <meta name="description" content="Justus' Imageboard">
+        <meta name="keywords" content="cspchatroom">
+        <meta name="author" content="Justus Languell">
+
+        <link rel="stylesheet" href="{{ url_for("static", filename="css/styles.css") }}">
+        <link rel="stylesheet" href="{{ url_for("static", filename="css/auth.css") }}">
+
+        <script src='{{ url_for("static", filename="js/hash.js") }}'></script>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" 
+        integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous">
+        </script>
+
+    </head>
+    <body>
+        <div class="mainbox">
+        <h1>{{err}}</h1><br>
+        <h4>{{info}}</h4><br>
+        <h3><a href="/">Home</a></h3>
+        </div>
+    </body>
+</html>
