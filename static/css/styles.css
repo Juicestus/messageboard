@@ -18,7 +18,7 @@ body
     border: 2px #657786 solid;
     min-width: 900px;
     display: grid;
-    grid-template-columns: 15% 85%;
+    grid-template-columns: 20% 80%;
     background-color: #0a0a0c;
     padding: 0px;
     margin: 0px;
@@ -163,6 +163,13 @@ input[type=text] {
 
 }
 
+.btn:disabled
+{
+    background-color: #0d659c;
+    border: 2px #0d659c solid;
+
+}
+
 .btn-wrap 
 {
     margin: 0px;
@@ -183,6 +190,52 @@ input[type=text] {
 
 /* Text */
 
+.btn-s {
+    width: 48px;
+    height: 48px;
+    border-radius: 10px;
+    padding: 0px;
+    margin: 0px;
+    margin-right: 10px;
+
+}
+
+.web {
+    background-color: #1DA1F2;
+    border: 2px #1DA1F2 solid;
+}
+
+.web:hover
+{
+    background-color: #0d659c;
+    border: 2px #0d659c solid;
+}
+
+
+.mail {
+    border: 2px #228B22 solid;
+    background-color: #228B22;
+   
+}
+
+.mail:hover
+{
+    background-color: #006400;
+    border: 2px  #006400 solid;
+}
+
+.ig {
+    border: 2px #FD1D1D solid;
+    background-color: #FD1D1D;;
+}
+
+.ig:hover
+{
+    background-color: #ab0900;
+    border: 2px  #ab0900 solid;
+    
+}
+
 .blue {
     color: #1DA1F2;
 }
@@ -191,12 +244,21 @@ input[type=text] {
     color: #F40009;
 }
 
+.admin {
+    /*color: #F40009;*/
+    color: #1DA1F2;
+    font-weight: bold;
+    font-size: 16px;
+}
+
 p {
     font-family: Arial, Helvetica, sans-serif;
     font-size: 14px;
 }
+
 p.msg {
     color: white;
+    font-size: 16px;
 }
 
 p.label {
@@ -207,6 +269,9 @@ p.label {
 
 p.text {
     color: white;
+}
+.tiny {
+    font-size: 12px;
 }
 
 a {

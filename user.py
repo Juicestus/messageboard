@@ -3,6 +3,7 @@
 # User Classes
 # (c) Justus Languell 2020-2021
 
+from database import loadUsersFromDatabase
 
 from flask import Flask, render_template, url_for, request, abort, redirect, Response
 from flask_socketio import SocketIO, emit         
@@ -73,3 +74,9 @@ class UsersRepository:
     def list_users(self):
         
         return list(self.users.keys())
+
+    def load_from_database(self, fn):
+
+        for user in loadUsersFromDatabase(fn):
+            new_user = User(user[0] , user[1] , user[2])
+            self.save_user(new_user)

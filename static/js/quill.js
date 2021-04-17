@@ -14,7 +14,7 @@ function getQuillE()
         modules: {
             toolbar: toolbarOptions
         },
-        placeholder: 'Message chat. Paste or upload an image. Use @ to notify other users.'
+        placeholder: 'Message chat. Paste or upload an image. Use @ to notify other users. Enter to submit fast.'
 	});
     return q;
 };
@@ -92,5 +92,24 @@ function qLimit(quill)
         };
         
         document.getElementById('charmsg').innerHTML = warning;
+    });
+};
+
+function qEnterSubmit(quill, subid)
+{
+    quill.keyboard.bindings[13].unshift
+    ({
+        key: 13,
+        handler: (range, context) => 
+        {
+            if (this.popupVisible) 
+            {
+                var doNothing;
+            }
+            else
+            {
+                document.getElementById(subid).click();
+            };
+        }
     });
 };

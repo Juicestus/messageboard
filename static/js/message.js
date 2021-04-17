@@ -46,10 +46,18 @@ function processMessages(messages, username)
 				h = 'highlight';
 			};
 		};
-
+		
+		var usrc = 'msg';
+		var ver = '';
+		if (message.username == 'Justus')
+		{
+			usrc = 'admin';
+			ver = '✔';
+		};
+		  
 		block += `<div class="msg-cont ${h}">`;
 
-		block += `<div class="msg-item"><p class="msg">${message.username}</p></div>`;
+		block += `<div class="msg-item"><p class="${usrc}" >${message.username} ${ver}</p></div>`;
 		block += `<div class="msg-item"><p class="msg">${message.msg}${image}</p></div>`;
 		block += `<div class="msg-item"><p class="msg">${message.time}</p></div>`;
 		block += '</div>';

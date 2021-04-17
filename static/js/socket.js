@@ -33,8 +33,9 @@ $(document).ready(function()
 
 	var quill = getQuillE();
 	qLimit(quill);
-
-    document.getElementById('newmsg').innerHTML = `There are no new messages.&nbsp;&nbsp;&nbsp;&nbsp;`;
+	qEnterSubmit(quill, 'sendbtn');
+	
+	document.getElementById('newmsg').innerHTML = `There are no new messages.&nbsp;&nbsp;&nbsp;&nbsp;`;
 	scrollDown(); 
 	var socket = io();	
     newmsgs = -1;

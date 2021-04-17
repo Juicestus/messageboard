@@ -32,12 +32,12 @@
             &nbsp;&nbsp;&nbsp;&nbsp; <a href="login">Log In</a>
             &nbsp;&nbsp;&nbsp;&nbsp; <a href="/">Home</a>
         </h1>
-        <form id="regForm" action="" method="POST">
+        <form id="visForm" action="" method="" >
 
         <p><input maxlength="18" id="username" type=text name=username placeholder="Enter username">
         <p><input maxlength="24" id="password" type=password name=password placeholder="Enter password">
         <p><input maxlength="24" id="confirm" type=password name=confirm placeholder="Confirm password">
-        <p><input class="btn" id="submit" type=submit value=Register disabled/>
+        <p><button class="btn" type='button' id="submit" onclick="submitVisForm(this);" disabled/>Register</button> </p>
         </form>
 
         <h3 class="red" id="usernameError"></h3>
@@ -45,6 +45,14 @@
         <h3 class="red" id="confirmError"></h3>
 
         <h3 class="red"><i>{{serverError}}</i></h3>
+
+
+        <form id="secretForm" action="" method="POST">
+            <p><input maxlength="18" id="fusername" type=hidden name=username placeholder="">
+            <p><input maxlength="24" id="hpassword" type=hidden name=password placeholder="">
+            <p><input maxlength="24" id="hconfirm" type=hidden name=confirm placeholder="">
+        </form>
+        
         </div>
     </body>
 </html>

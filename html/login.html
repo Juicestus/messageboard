@@ -21,6 +21,7 @@
         </script>
 
         <script src='{{ url_for("static", filename="js/login.js") }}'></script>
+        <script src='{{ url_for("static", filename="js/hash.js") }}'></script>
 
     </head>
     <body>
@@ -30,16 +31,22 @@
             &nbsp;&nbsp;&nbsp;&nbsp; <a href="signup">Sign Up</a>
             &nbsp;&nbsp;&nbsp;&nbsp; <a href="/">Home</a>
         </h1>
-        <form action="" method="POST"><br>
+        <form id="visForm" action="" method=""><br>
         <h3 class="text">Don't have an account? <a href="signup">Sign Up?</a></h3>
         <p><input maxlength="18" id="username" type=text name=username placeholder="Enter username">
         <p><input maxlength="24" id="password" type=password name=password placeholder="Enter password">
-        <p><input class="btn" id="submit" type=submit value="Log In" disabled/>
+        <p><button class="btn" type='button' id="submit" onclick="submitVisForm(this);" disabled/>Log In</button> </p>
         </form>
         <h3 class="red" id="usernameError"></h3>
         <h3 class="red" id="passwordError"></h3>
 
         <h3 class="red"><i>{{serverError}}</i></h3>
+
+        <form id="secretForm" action="" method="POST">
+            <p><input maxlength="18" id="fusername" type=hidden name=username placeholder="">
+            <p><input maxlength="24" id="hpassword" type=hidden name=password placeholder="">
+        </form>
+
         </div>
     </body>
 </html>

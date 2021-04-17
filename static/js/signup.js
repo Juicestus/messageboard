@@ -23,6 +23,27 @@ function isLegal(s,l)
     return legal;
 };
 
+function submitVisForm(e)
+{
+
+    var formElem = document.getElementById('visForm');
+
+    let formData = new FormData(formElem);
+
+    var fusername = formData.get('username');
+    var fpassword = formData.get('password');
+    var fconfirm = formData.get('confirm');
+
+    var hpassword = sha256(fusername + fpassword);
+    var hconfirm = sha256(fusername + fconfirm);
+
+    document.getElementById('fusername').value = fusername;
+    document.getElementById('hpassword').value = hpassword;
+    document.getElementById('hconfirm').value = hconfirm;
+    
+    document.getElementById('secretForm').submit();
+};
+
 
 $(document).ready(function() 
 {
@@ -75,22 +96,23 @@ $(document).ready(function()
             document.getElementById('confirmError').innerHTML = '';
         }
     });
-
-
-
 });
-
-
 
 setInterval(function()
 {
     var submit = document.getElementById('submit');
 
     submit.disabled = (
+
     (document.getElementById('usernameError').innerHTML != '')||
     (document.getElementById('passwordError').innerHTML != '')||
-    (document.getElementById('confirmError').innerHTML != ''));
+    (document.getElementById('confirmError').innerHTML != '')||
 
-    ;
+    ( !document.getElementById('username').value.replace(/\s/g, '').length )||
+    ( !document.getElementById('password').value.replace(/\s/g, '').length )||
+    ( !document.getElementById('confirm').value.replace(/\s/g, '').length )
+    );
 },
 10);
+
+

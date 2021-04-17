@@ -5,6 +5,7 @@
 
 from message import Message 
 from user import UsersRepository, User
+from database import saveUsersToDatabase
 
 from flask import Flask, render_template, url_for, request, abort, redirect, Response
 from flask_socketio import SocketIO, emit         
@@ -39,6 +40,7 @@ login_manager.init_app(app)
 socketio = SocketIO(app) 
 
 users_repository = UsersRepository()
+users_repository.load_from_database('USERS')
 
 def sha(s):
     return sha256(bytes(s,'utf-8')).hexdigest()
@@ -98,7 +100,7 @@ def login():
 @app.route('/signup' , methods = ['GET' , 'POST'])
 def register():
     serverError = ''
-
+    
     if request.method == 'POST':
 
         username = request.form['username']
@@ -113,6 +115,9 @@ def register():
                 users_repository.save_user(new_user)
 
                 login_user(new_user)
+
+                saveUsersToDatabase(users_repository, 'USERS')
+
                 return redirect('/')
 
             else:
