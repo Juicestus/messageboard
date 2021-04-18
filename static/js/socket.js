@@ -10,29 +10,17 @@
  * handler bc its rly shitty rn
  */
 
-/* 
- * Note to self
- * Just clean up th JavaScript in general
- * bc it's not as good as the Python
- */
-
-/* 
- * Note to self
- * I know u want to kill yourself bc
- * of some of this. I just wanted to say
- * go for it. Just end our suffering.
- */
-
 
 var lastSent = 0; // The time since last sent message (UNIX timestamp)
-var sendDelay = 5;	// Delay between sends
+var sendDelay = 3;	// Delay between sends
 var msgCount = 0;
 
 $(document).ready(function() 
 {
+	scrollDown(); 
 
 	var quill = getQuillE();
-	qLimit(quill);
+	qLimit(quill, 200, 50);
 	qEnterSubmit(quill, 'sendbtn');
 	
 	document.getElementById('newmsg').innerHTML = `There are no new messages.&nbsp;&nbsp;&nbsp;&nbsp;`;
@@ -40,6 +28,30 @@ $(document).ready(function()
 	var socket = io();	
     newmsgs = -1;
 
+	// On recived socket
+	socket.on('newMessage', function(servedMessages, cb)
+	{
+		var messages = Array.from(servedMessages); 
+		var len = messages.length;	
+		var firsttime = messages[0].time; 
+		processMessages(messages, USER);
+		notifyMe();	
+
+		if (len > msgCount)
+		{
+			msgCount = len;
+		};
+
+		if (msgCount != 1) {var s1 = 's';} else {var s1 = '';}; 
+		if (msgCount != 1) {var a1 = 'are';} else {var a1 = 'is';}; 
+		if (len != 1) {var s2 = 's';} else {var s2 = '';};
+		if (len != 1) {var a2 = 'are';} else {var a2 = 'is';};
+
+		document.getElementById('newmsg').innerHTML = `• ${msgCount} new message${s1} &nbsp;&nbsp;&nbsp;&nbsp;`; //• ${len} message${s2} since ${firsttime}`; 
+		scrollDown();
+		
+	});
+	
 	// On connection, handles posting
 	socket.on('connect',function()	
 	{ 
@@ -100,26 +112,4 @@ $(document).ready(function()
 		});	
 	});
 
-	// On recived socket
-	socket.on('newMessage', function(servedMessages, cb)
-	{
-		var messages = Array.from(servedMessages); 
-		var len = messages.length;	
-		var firsttime = messages[0].time; 
-		processMessages(messages, USER);
-		notifyMe();	
-
-		if (len > msgCount)
-		{
-			msgCount = len;
-		};
-
-		if (msgCount != 1) {var s1 = 's';} else {var s1 = '';}; 
-		if (msgCount != 1) {var a1 = 'are';} else {var a1 = 'is';}; 
-		if (len != 1) {var s2 = 's';} else {var s2 = '';};
-		if (len != 1) {var a2 = 'are';} else {var a2 = 'is';};
-
-		document.getElementById('newmsg').innerHTML = `• ${msgCount} new message${s1} &nbsp;&nbsp;&nbsp;&nbsp;`; //• ${len} message${s2} since ${firsttime}`; 
-		scrollDown();
-	});
 });

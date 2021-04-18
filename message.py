@@ -30,7 +30,7 @@ class Message():
         # Time is converted from UNIX timestamp into readable format
         self.message['time'] = datetime.utcfromtimestamp(int(self.message['time']) / 1000).strftime('%Y-%m-%d %H:%M:%S') 
 
-        message = self.message['msg'][:1000]   
+        message = self.message['msg'][:200]   
 
         #message = message.replace('<','&lt;') # Replace < with html safe < 
         #message = message.replace('>','&gt;') # Replace > with html safe > 
@@ -39,11 +39,47 @@ class Message():
 
         message = htmlspecialchars(message)
 
-        message = message.replace('\n','<br>')  
+        '''
+        i = 0
+        maxbr = 5
+        msg = ''
+
+        ms = message.split('\n')
+        for m in ms:
+
+            if i <= maxbr:
+                msg += m 
+                msg += '<br>'
+
+            else:
+                msg += m 
+                msg += ' '
+
+            i+=1
+
+        message = msg
+        '''
+
+        if message.count('\n') > 10:
+            message = message.replace('\n','&nbsp;')
+        else:
+            message = message.replace('\n','<br>')
+
         message = message.replace(' ','&nbsp;')
         message = message.replace('\t','&Tab;') 
 
         self.message['msg'] = message
+
+
+    # Gives verfied users the check
+    def isVerf(self):
+
+        verf = [l for l in open('VERIFIED','r')]
+
+        print(verf)
+
+        if self.message['username'] in verf:
+            self.message['username'] += ' ✔'
 
 
     # Formats links as <a> tags

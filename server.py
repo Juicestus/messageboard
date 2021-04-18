@@ -21,6 +21,9 @@ import base64
 from threading import Lock, Thread
 from time import sleep
 from hashlib import sha256
+import random
+
+DEBUG = '-d' in sys.argv
 
 messages = list() 
 
@@ -45,11 +48,22 @@ users_repository.load_from_database('USERS')
 def sha(s):
     return sha256(bytes(s,'utf-8')).hexdigest()
 
+def randomDice():
+    dice = '⚀⚁⚂⚃⚄⚅'
+    d=''
+    for _ in range(10):
+        d += dice[random.randint(0,5)] 
+    return d
+
 @app.route('/')
 @login_required
 def index():
     
-    return render_template('index.html', currentUser = current_user.username)   
+    debug = 'Debug Mode' if DEBUG else ''
+    return render_template('index.html', 
+                            currentUser = current_user.username,
+                            debug = debug,
+                            dice = randomDice())   
 
 @socketio.event                                 
 def connected():                                 
@@ -68,6 +82,7 @@ def updateMessage(message):
     message.formatLinks()
     message.legalize(legalchars)
     message.censor(restrictedwords)
+    message.isVerf()
 
     messages.append(message.message)
 
@@ -189,7 +204,7 @@ if __name__ == '__main__':
     #if not '-t' in sys.argv:
         #runThreads()
 
-    if '-d' in sys.argv:
+    if DEBUG:
         socketio.run(app,debug=True)         
 
     else:

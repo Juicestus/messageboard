@@ -38,9 +38,11 @@ body
 .messages-cont {
     min-height: 400px;
     height: 62vh;
-    overflow-y: auto;
+    overflow-y: scroll;
     overflow-x: hide;
 }
+
+
 
 .sidebar-cont
 {
@@ -65,7 +67,7 @@ body
     background-color: black;
     padding: 0px;
     margin: 0px;
-    overflow-x: hide;
+    overflow-x: hidden;
 }
 
 .highlight {
@@ -74,7 +76,8 @@ body
 
 .msg-item {
     padding: 10px; 
-    overflow-x: hide;
+    overflow-x: wrap;
+    overflow-wrap: break-word;
 }
 
 .right {
@@ -194,8 +197,9 @@ input[type=text] {
     width: 48px;
     height: 48px;
     border-radius: 10px;
-    padding: 0px;
-    margin: 0px;
+    padding: 5px;
+    margin: 5px;
+    margin-left: 0px;
     margin-right: 10px;
 
 }
@@ -226,14 +230,43 @@ input[type=text] {
 
 .ig {
     border: 2px #FD1D1D solid;
-    background-color: #FD1D1D;;
+    background-color: #FD1D1D;
 }
 
 .ig:hover
 {
     background-color: #ab0900;
     border: 2px  #ab0900 solid;
-    
+}
+
+.git {
+    border: 2px #6f42c1 solid;
+    background-color: #6f42c1;
+}
+
+.git:hover
+{
+    background-color: #1b1f23;
+    border: 2px  #1b1f23 solid;
+}
+
+.btc {
+    border: 2px #f2a900 solid;
+    background-color: #f2a900;
+}
+
+.btc:hover
+{
+    background-color: #4d4d4e;
+    border: 2px  #4d4d4e solid;
+}
+
+.btci {
+    font-size:32px;
+    color:#F9F6EF;
+    padding: 0px;
+    padding-bottom: 10px;
+    margin: 0px;
 }
 
 .blue {
@@ -244,8 +277,7 @@ input[type=text] {
     color: #F40009;
 }
 
-.admin {
-    /*color: #F40009;*/
+.verf {
     color: #1DA1F2;
     font-weight: bold;
     font-size: 16px;

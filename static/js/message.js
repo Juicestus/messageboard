@@ -41,7 +41,8 @@ function processMessages(messages, username)
 
 		if (username != 'Guest')
 		{
-			if (message.msg.includes('@'+username))
+			if (message.msg.includes('@'+username) ||
+				message.msg.includes('@all'))
 			{
 				h = 'highlight';
 			};
@@ -49,10 +50,9 @@ function processMessages(messages, username)
 		
 		var usrc = 'msg';
 		var ver = '';
-		if (message.username == 'Justus')
+		if (message.username[message.username.length-1] == '✔')
 		{
-			usrc = 'admin';
-			ver = '✔';
+			usrc = 'verf';
 		};
 		  
 		block += `<div class="msg-cont ${h}">`;

@@ -62,10 +62,10 @@ function qClear(q)
 };
 
 // Controls character limits
-function qLimit(quill)
+function qLimit(quill, limit, threshold)
 {
-    var limit = 500;
-    var threshold = 50;
+    //var limit = 500;
+    //var threshold = 50;
 
     document.getElementById('charmsg').innerHTML = `• 0/${limit} Chars&nbsp;&nbsp;`;
 
