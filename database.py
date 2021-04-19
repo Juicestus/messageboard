@@ -20,7 +20,8 @@ def loadUsersFromDatabase(fn):
     r = []
 
     for l in f:
-        r.append(l.split('@'))
+        if '@' in l:
+            r.append(l.split('@'))
 
     return r
         

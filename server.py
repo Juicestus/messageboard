@@ -6,6 +6,7 @@
 from message import Message 
 from user import UsersRepository, User
 from database import saveUsersToDatabase
+from advert import loadAds
 
 from flask import Flask, render_template, url_for, request, abort, redirect, Response
 from flask_socketio import SocketIO, emit         
@@ -23,6 +24,7 @@ from time import sleep
 from hashlib import sha256
 import random
 
+DETOX = '-x' in sys.argv
 DEBUG = '-d' in sys.argv
 
 messages = list() 
@@ -63,7 +65,8 @@ def index():
     return render_template('index.html', 
                             currentUser = current_user.username,
                             debug = debug,
-                            dice = randomDice())   
+                            dice = randomDice(),
+                            ads = loadAds())   
 
 @socketio.event                                 
 def connected():                                 
@@ -83,10 +86,24 @@ def updateMessage(message):
     message.legalize(legalchars)
     message.censor(restrictedwords)
     message.isVerf()
+    toxic, tmetrics, trres = message.isToxic(.5)
 
-    messages.append(message.message)
+    print(tmetrics)
+    print(trres)
 
-    emit('newMessage',messages,broadcast=True)   
+    if DETOX:
+        if not toxic:
+            messages.append(message.message)
+            emit('msgNotToxic','justus was here',broadcast=False)   
+            emit('newMessage',messages,broadcast=True)   
+
+        else:
+            emit('msgToxic','justus was here',broadcast=False)  
+
+    else:
+        emit('newMessage',messages,broadcast=True)   
+
+
 
 
 @app.route('/login' , methods=['GET' , 'POST'])

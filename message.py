@@ -3,6 +3,8 @@
 # Message Class
 # (c) Justus Languell 2020-2021
 
+import detox
+
 # I know i already imported these but fuck you!
 from flask import Flask, render_template, url_for 
 from flask_socketio import SocketIO, emit         
@@ -13,6 +15,7 @@ import base64
 from django.utils.html import escape as htmlspecialchars
 
 from profanity_filter import ProfanityFilter
+
 
 class Message():
 
@@ -39,27 +42,6 @@ class Message():
 
         message = htmlspecialchars(message)
 
-        '''
-        i = 0
-        maxbr = 5
-        msg = ''
-
-        ms = message.split('\n')
-        for m in ms:
-
-            if i <= maxbr:
-                msg += m 
-                msg += '<br>'
-
-            else:
-                msg += m 
-                msg += ' '
-
-            i+=1
-
-        message = msg
-        '''
-
         if message.count('\n') > 10:
             message = message.replace('\n','&nbsp;')
         else:
@@ -75,8 +57,6 @@ class Message():
     def isVerf(self):
 
         verf = [l for l in open('VERIFIED','r')]
-
-        print(verf)
 
         if self.message['username'] in verf:
             self.message['username'] += ' ✔'
@@ -176,3 +156,9 @@ class Message():
         self.message['msg'] = self.message['msg'].replace(tagl,'<')
         self.message['msg'] = self.message['msg'].replace(tagr,'>')
 
+    # Detoxify System
+    def isToxic(self, t):
+
+        msgScore, metric, result = detox.toxicScore(self.message['msg'])
+        self.message['metrics'] = metric
+        return msgScore > t, metric, result

@@ -18,7 +18,7 @@ body
     border: 2px #657786 solid;
     min-width: 900px;
     display: grid;
-    grid-template-columns: 20% 80%;
+    grid-template-columns: 180px 90% ;
     background-color: #0a0a0c;
     padding: 0px;
     margin: 0px;
@@ -38,12 +38,11 @@ body
 .messages-cont {
     min-height: 400px;
     height: 62vh;
-    overflow-y: scroll;
     overflow-x: hide;
+
+    display: grid;
+    grid-template-columns: 80% 20%;
 }
-
-
-
 .sidebar-cont
 {
     grid-row: 1 / 5;
@@ -59,11 +58,20 @@ body
 
 /* Message Grid */
 
+.msgs-cont {
+    overflow-y: scroll;
+
+}
+.ads-cont {
+    overflow-y: scroll;
+}
+
 .msg-cont {
+    grid-column: 1 / 2;
     border-top: 1px #657786 solid;
     width: 100;
     display: grid;
-    grid-template-columns: 15% 60% 25%;
+    grid-template-columns: 15% 40% 25%;
     background-color: black;
     padding: 0px;
     margin: 0px;
@@ -103,7 +111,7 @@ body
 
 .form-cont {
     display: grid;
-    grid-template-columns: 60% 35%;
+    grid-template-columns: 50% 50%;
     padding: 0px;
     margin: 0px;
     height: 100%;
@@ -190,6 +198,31 @@ input[type=text] {
     position: absolute;
 }
 
+.upl-btn-wrap input[type=submit] 
+{
+    font-size: 100px;
+    position: absolute;
+}
+
+.menu {
+    margin-bottom: 10px;
+    margin-right: 5px;
+    font-size: 120%;
+    padding: 10px;
+    width: 120px;
+}
+
+.advert {
+    padding: 0px;
+    margin: 5px;
+    border: 0px #1DA1F2 solid;
+    max-width: 100%;
+}
+
+.advert:hover
+{
+    border: 0px #0d659c solid;
+}
 
 /* Text */
 

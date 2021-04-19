@@ -10,6 +10,15 @@
  * handler bc its rly shitty rn
  */
 
+function setElemIn(s ,id, t)
+{
+	setTimeout(() => 
+		{  
+			document.getElementById(id).innerHTML = s; 
+		},
+	t);
+};
+
 // Renders messages from list on document
 function processMessages(messages, username) 
 {	
@@ -93,7 +102,24 @@ function send(socket, username, msg, time, src, webimg, q)
 				webimg: webimg
 			});
 
+			document.getElementById('sendInfo').innerHTML = `Sending Message ...`; 
+			setElemIn('Screening Message ...', 'sendInfo', 300);
 			lastSent = time;	
+
+			socket.on('msgNotToxic', function()
+			{
+				document.getElementById('sendInfo').innerHTML = `Message Sent!`; 
+
+				setElemIn('', 'sendInfo', 2000);
+			});
+
+			socket.on('msgToxic', function()
+			{
+				document.getElementById('sendInfo').innerHTML = `Message Flagged for Toxicity!`; 
+
+				setElemIn('', 'sendInfo', 2000);
+			});
+
             qClear(q);
 		};
 	};

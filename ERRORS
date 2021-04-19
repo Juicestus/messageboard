@@ -1,9 +1,3 @@
-
-400 : Bad request  : Mascot is visibly confused
-401 : Unauthorized : Mascot is holding his hand up to symbolize to stop
-404 : Not found    : Mascot is searching with binoculars or somthin
-
-
 100 Continue
 101 Switching Protocols
 103 Early Hints

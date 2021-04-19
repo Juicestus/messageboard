@@ -6,7 +6,7 @@
 // Scrolls to bottom
 function scrollDown() 
 {
-	$('div.messages-cont').animate({ scrollTop: $('div.messages-cont')[0].scrollHeight}, 500);
+	$('div.msgs-cont').animate({ scrollTop: $('div.msgs-cont')[0].scrollHeight}, 500);
 }
 
 // I forgot what this does and I doubt its still in use

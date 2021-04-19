@@ -43,8 +43,13 @@
 
             <div class="grid-item sidebar-cont">
                 <h1>Justus' Trash Website</h1>
-                
-                <h4><br>Beta 15.5 <b class="red">{{debug}}</b></h4>
+                <br>
+            
+
+                <button type="button" class="menu btn" onclick="window.location.href='/login';">Log In</button>
+                <button type="button" class="menu btn" onclick="window.location.href='/signup';">Sign Up</button>
+                <button type="button" class="menu btn" onclick="window.location.href='/logout';">Log Out</button><br>
+
                 
                 <button type="button" class="btn-s web" onclick="window.location.href='https://www.gtsbr.org/';">
                     <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#F9F6EF" class="bi bi-globe" viewBox="0 0 16 16">
@@ -69,18 +74,19 @@
                         <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/>
                     </svg>
                 </button>
-
+                <!--
                 <button type="button" class="btn-s btc" onclick="copyBTCAddy()">
                     <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="32" height="32" viewBox="0 0 32 32" version="1.1">
                         <g id="surface1">
                         <path style=" stroke:none;fill-rule:nonzero;fill:#F9F6EF;fill-opacity:1;" d="M 31.519531 19.871094 C 29.382812 28.441406 20.699219 33.660156 12.128906 31.519531 C 3.558594 29.382812 -1.65625 20.703125 0.480469 12.132812 C 2.617188 3.558594 11.296875 -1.660156 19.867188 0.476562 C 28.441406 2.617188 33.65625 11.296875 31.519531 19.871094 Z M 31.519531 19.871094 "/>
                         <path style=" stroke:none;fill-rule:nonzero;fill:#f2a900;fill-opacity:1;" d="M 23.054688 13.71875 C 23.375 11.589844 21.753906 10.445312 19.535156 9.683594 L 20.253906 6.800781 L 18.5 6.363281 L 17.800781 9.171875 C 17.335938 9.054688 16.863281 8.945312 16.394531 8.839844 L 17.097656 6.011719 L 15.34375 5.574219 L 14.625 8.457031 C 14.242188 8.371094 13.867188 8.285156 13.503906 8.195312 L 13.503906 8.183594 L 11.082031 7.582031 L 10.617188 9.457031 C 10.617188 9.457031 11.917969 9.753906 11.890625 9.773438 C 12.601562 9.949219 12.730469 10.421875 12.710938 10.792969 L 11.890625 14.078125 C 11.941406 14.09375 12.003906 14.109375 12.074219 14.136719 C 12.015625 14.125 11.953125 14.109375 11.886719 14.09375 L 10.738281 18.695312 C 10.652344 18.910156 10.433594 19.234375 9.933594 19.113281 C 9.953125 19.136719 8.660156 18.792969 8.660156 18.792969 L 7.789062 20.800781 L 10.070312 21.371094 C 10.496094 21.476562 10.914062 21.589844 11.324219 21.695312 L 10.597656 24.613281 L 12.351562 25.050781 L 13.070312 22.164062 C 13.550781 22.292969 14.015625 22.414062 14.46875 22.527344 L 13.753906 25.398438 L 15.507812 25.835938 L 16.234375 22.925781 C 19.226562 23.492188 21.480469 23.261719 22.425781 20.554688 C 23.191406 18.375 22.386719 17.117188 20.8125 16.296875 C 21.960938 16.035156 22.824219 15.277344 23.054688 13.71875 Z M 19.042969 19.34375 C 18.5 21.523438 14.832031 20.347656 13.640625 20.050781 L 14.605469 16.1875 C 15.792969 16.484375 19.609375 17.070312 19.042969 19.34375 Z M 19.585938 13.6875 C 19.089844 15.671875 16.035156 14.664062 15.046875 14.417969 L 15.917969 10.914062 C 16.910156 11.160156 20.101562 11.621094 19.585938 13.6875 Z M 19.585938 13.6875 "/>
                         </g>
-                        </svg>
-                    </button>
+                    </svg>
+                </button>
 
 
-                <input class="" id="btcaddy" type="hidden" value="bc1q9wy07jg2kjgaw6kshfp2z84xnf3asd9f6lggkj">                
+                <input class="" id="btcaddy" type="hidden" value="bc1q9wy07jg2kjgaw6kshfp2z84xnf3asd9f6lggkj">           
+                -->     
                 
                 <br>
                 <!--<img src='{{ url_for("static", filename="img/jesus.gif") }}'></img>-->
@@ -97,23 +103,34 @@
                     Working on a pruning system.
                 </p>
             </div>
+           
+
 
             <div class="grid-item">
                     <div class="user-cont">
+                        <h4 class="text">Home 
+                            &nbsp;&nbsp;&nbsp;&nbsp; <a href="/login">Log In</a>
+                            &nbsp;&nbsp;&nbsp;&nbsp; <a href="/signup">Sign Up</a>
+                            &nbsp;&nbsp;&nbsp;&nbsp; <a href="/logout">Log Out</a>
+                            &nbsp;&nbsp;&nbsp;&nbsp; <a href="/verified">Get Verified</a>
+                        </h4><br>
                         <h2>
                             Welcome: 
-                            <i class="blue">{{currentUser}}</i> 
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="login">Log In</a>
-                            &nbsp;&nbsp;&nbsp;&nbsp; <a href="signup">Sign Up</a>
-                            &nbsp;&nbsp;&nbsp;&nbsp; <a href="logout">Log Out</a>
-
+                            <i class="blue">{{currentUser}}&nbsp;&nbsp;&nbsp;&nbsp;</i> 
+                            <i id="sendInfo"></i> 
                         </h2>
                     </div>
-                
             </div>
 
-            <div id="messages" class="grid-item messages-cont">
-
+            <div id="" class="grid-item messages-cont">
+                <div id="messages" class="msgs-cont">
+                </div>
+                <div id="ads-cont" class="">
+                    {% for ad in ads %}
+                    <input type="image" src="{{ad[1]}}" class="advert" onclick="window.location.href='{{ad[0]}}';"/>
+                    {% endfor %}
+                    </button>
+                </div>
             </div>
 
             <div class="grid-item inputs-cont">
@@ -134,9 +151,11 @@
                                 <button type="button" class="btn" onclick="$('#fileUpload').click();">Upload a file</button>
                             
                             </div>
+
                             <div class="btn-wrap upl-btn-wrap" style="padding-left: 15px;">
 
-                                <input id="sendbtn" class="btn" type="submit" value="Send">
+                                <input id="sendbtn" class="btn" type="submit" value="Send" style="visibility: hidden;"/>
+                                <button type="button" class="btn" onclick="$('#sendbtn').click();">Send</button>
                             
                             </div>
                         </div>    
@@ -153,7 +172,8 @@
                 <p class="text left" id="waitmsg"></p>
                 </div>
             </div>
-
+            
+            
         </div>
     </body>
 </html>
